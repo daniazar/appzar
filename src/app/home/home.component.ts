@@ -48,9 +48,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       if (!img.complete) {
         img.onload = () => {
           console.log(img);
-
           this.explosionInit(img);
-          //observer.next(this.getBase64Image(img));
           observer.complete();
         };
         img.onerror = (err) => {
@@ -58,20 +56,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
         };
       } else {
         this.explosionInit(img);
-        //        observer.next(this.getBase64Image(img));
         observer.complete();
       }
     });
-  }
-
-  getBase64Image(img: HTMLImageElement) {
-    const canvas = document.createElement('canvas');
-    canvas.width = img.width;
-    canvas.height = img.height;
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(img, 0, 0);
-    const dataURL = canvas.toDataURL('image/png');
-    return dataURL.replace(/^data:image\/(png|jpg);base64,/, '');
   }
 
   explosionInit(img: HTMLImageElement) {

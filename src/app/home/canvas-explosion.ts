@@ -17,9 +17,9 @@ export class CanvasExplosion {
     this._canvas.addEventListener('mousemove', (event) => {
       Mouse.x = ((event.clientX - this._rect.left) / (this._rect.right - this._rect.left)) * this._canvas.width;
       Mouse.y = ((event.clientY - this._rect.top) / (this._rect.bottom - this._rect.top)) * this._canvas.height;
-      //Mouse.x = (event.x + this._canvas.clientLeft - this._canvas.offsetLeft) * 4;
-      //Mouse.y = (event.y + this._canvas.clientTop  - this._canvas.offsetTop) * 4;
-      //console.log(Mouse.y + ' ' + event.y + ' ' + this._canvas.clientTop + ' ' + this._canvas.offset().top);
+      // Mouse.x = (event.x + this._canvas.clientLeft - this._canvas.offsetLeft) * 4;
+      // Mouse.y = (event.y + this._canvas.clientTop  - this._canvas.offsetTop) * 4;
+      // console.log(Mouse.y + ' ' + event.y + ' ' + this._canvas.clientTop + ' ' + this._canvas.offset().top);
     });
 
     this.drawImage(this);
@@ -89,8 +89,8 @@ export class CanvasExplosion {
 
     // RESIZE SETTING - empty and refill particle array every time window changes size + change canvas size
     window.addEventListener('resize', () => {
-      //explosion._canvas.width = innerWidth;
-      //explosion._canvas.height = innerHeight;
+      // explosion._canvas.width = innerWidth;
+      // explosion._canvas.height = innerHeight;
       explosion._context.clearRect(0, 0, explosion._canvas.width, explosion._canvas.height);
       explosion._rect = explosion._canvas.getBoundingClientRect();
     });
