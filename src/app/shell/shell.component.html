@@ -9,6 +9,18 @@
             <span translate>Home</span>
           </a>
           <mat-divider></mat-divider>
+          <a mat-list-item href="https://blog.appzar.com.ar" routerLinkActive="active" (click)="sidenav.close()">
+            <span translate>Blog</span>
+          </a>
+          <mat-divider></mat-divider>
+          <a mat-list-item routerLink="/projects" routerLinkActive="active" (click)="sidenav.close()">
+            <span translate>Projects</span>
+          </a>
+          <mat-divider></mat-divider>
+          <a mat-list-item routerLink="/experiments" routerLinkActive="active" (click)="sidenav.close()">
+            <span translate>Experiments</span>
+          </a>
+          <mat-divider></mat-divider>
           <a mat-list-item routerLink="/about" routerLinkActive="active" (click)="sidenav.close()">
             <span translate>About</span>
           </a>

@@ -3,20 +3,25 @@
     <button class="menu-button" mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <span class="title">{{ title }}</span>
+    <span class="title">{{ title }}</span
+    ><img class="siteLogo" src="assets/Logo.png" alt="AppZar" />
   </div>
-  <div fxHide.lt-md>
-    <a class="brand" href="/" translate>APP_NAME</a>
-    <button mat-button routerLink="/home" routerLinkActive="active">
-      <mat-icon>home</mat-icon>
-      <span translate>Home</span>
-    </button>
-    <a style="color: white;" href="https://blog.appzar.com.ar">
+  <div class="menu-top" fxHide.lt-md>
+    <a class="brand" href="/"> <img class="siteLogo" src="assets/Logo.png" alt="AppZar" /> </a>
+    <a id="first-button" style="color: white;" href="https://blog.appzar.com.ar">
       <button mat-button>
         <mat-icon>open_in_new</mat-icon>
         <span translate>Blog</span>
       </button>
     </a>
+    <button mat-button routerLink="/projects" routerLinkActive="active">
+      <mat-icon>card_travel</mat-icon>
+      <span translate>Projects</span>
+    </button>
+    <button mat-button routerLink="/experiments" routerLinkActive="active">
+      <mat-icon>extension</mat-icon>
+      <span translate>Experiments</span>
+    </button>
     <button mat-button routerLink="/about" routerLinkActive="active">
       <mat-icon>info</mat-icon>
       <span translate>About</span>

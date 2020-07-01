@@ -12,6 +12,20 @@
   color: mat-color($app-primary, "default-contrast");
   text-decoration: none;
   padding-right: 1rem;
+  position: absolute;
+  top: 5px;
+}
+
+.siteLogo {
+  width: 160px;
+}
+
+#first-button {
+  padding-left: 8em;
+}
+
+a {
+  text-decoration: none;
 }
 
 .menu-button {
