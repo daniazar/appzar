@@ -50,12 +50,14 @@ export class CanvasExplosion {
             const positionY = y;
             // tslint:disable-next-line:max-line-length
             const color =
-              'rgb(' +
+              'rgba(' +
               data.data[y * 4 * data.width + x * 4] +
               ',' +
               data.data[y * 4 * data.width + x * 4 + 1] +
               ',' +
               data.data[y * 4 * data.width + x * 4 + 2] +
+              ',' +
+              data.data[y * 4 * data.width + x * 4 + 3] +
               ')';
 
             // tslint:disable-next-line:max-line-length
@@ -76,7 +78,7 @@ export class CanvasExplosion {
     }
     function animate() {
       requestAnimationFrame(animate);
-      explosion._context.fillStyle = 'rgba(255,255,255,.2)';
+      explosion._context.fillStyle = 'rgba(66,66,66,0.2)';
       explosion._context.fillRect(0, 0, innerWidth, innerHeight);
       // this._context.clearRect(0, 0, innerWidth, innerHeight);
 

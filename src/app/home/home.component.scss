@@ -1,6 +1,9 @@
 .container {
   text-align: center;
   padding: 1em;
+  mat-card {
+    border-radius: 80px;
+  }
 }
 
 .logo {
@@ -17,6 +20,7 @@ q {
   width: 134px;
   height: 136px;
   cursor: none;
+  border-radius: 50px;
 }
 
 #blogFrame {

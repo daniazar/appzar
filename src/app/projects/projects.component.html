@@ -1,10 +1,39 @@
 <div class="project">
+  <mat-card class="dark">
+    <p>
+      <img class="border" src="assets/image-metadata.png" alt="Image Metadata editor" />
+    </p>
+    <mat-card-content>
+      <mat-card-title translate>Image metadata editor <span class="year">2020</span></mat-card-title>
+      <mat-card-subtitle>
+        <span>C# / WinUI 3 Alpha</span>
+      </mat-card-subtitle>
+      <p>
+        An Application to edit image metadata. During the Covid-19 pandemic a quarantine was imposed. I used the extra
+        time at home to digitalize old family photos but needed to fix the metadata.<mat-card-actions>
+          <a
+            href="https://github.com/daniazar/ImageMetadataEditor"
+            target="blank"
+            angulartics2On="click"
+            angularticsAction="Open Asteroids Game"
+            angularticsCategory="projects"
+          >
+            <button mat-raised-button>
+              View Code
+              <mat-icon>launch</mat-icon>
+            </button>
+          </a>
+        </mat-card-actions>
+      </p>
+    </mat-card-content>
+  </mat-card>
+
   <mat-card class="purple">
     <p>
       <img class="border" src="assets/tvmaster.png" alt="TV Master" />
     </p>
     <mat-card-content>
-      <mat-card-title translate>TV Master</mat-card-title>
+      <mat-card-title translate>TV Master <span class="year">2018</span></mat-card-title>
       <mat-card-subtitle>
         <span>Typescript / Angular / Firebase / Electron / Cordova</span>
       </mat-card-subtitle>
@@ -41,19 +70,60 @@
       </mat-card-actions>
     </mat-card-content>
   </mat-card>
-  <mat-card class="blue">
+  <mat-card class="orange">
+    <p>
+      <img class="border" src="assets/cloudcam.png" alt="CloudCam" />
+    </p>
+    <mat-card-content>
+      <mat-card-title translate>CloudCam <span class="year">2015</span></mat-card-title>
+      <mat-card-subtitle>
+        <span>Javascript / AngularJS / postgresSQL / Kairos / Raspberry</span>
+      </mat-card-subtitle>
+      <p>
+        A Web application for security cameras with face recognition. It supports most chinese IP cameras, any webcam.
+        It was a prototype we made a security camera with a raspberry.
+      </p>
+      <mat-card-actions>
+        <a
+          href="https://cloudcam.herokuapp.com"
+          target="blank"
+          angulartics2On="click"
+          angularticsAction="Open CloudCam site"
+          angularticsCategory="projects"
+        >
+          <button mat-raised-button>
+            Open Website
+            <mat-icon>language</mat-icon>
+          </button>
+        </a>
+        <a
+          href="https://youtu.be/tSpp2GaxFvQ"
+          target="blank"
+          angulartics2On="click"
+          angularticsAction="Open cloud cam video"
+          angularticsCategory="projects"
+        >
+          <button mat-raised-button>
+            View video on Youtube
+            <mat-icon>launch</mat-icon>
+          </button>
+        </a>
+      </mat-card-actions>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="dark">
     <p>
       <img class="border" src="assets/isurfer.png" alt="iSurfer" />
     </p>
     <mat-card-content>
-      <mat-card-title translate>ISurfer</mat-card-title>
+      <mat-card-title translate>ISurfer <span class="year">2013</span></mat-card-title>
       <mat-card-subtitle>
         <span>OpenGL ES 2 / Objective C</span>
       </mat-card-subtitle>
       <p>
-        My thesis project, an algebraic surfaces renderer for iPhone. As the CPU was not powerfull enough at the time.
-        It was implemneted using the GPU. For this it used a custom raytracer inside a Shader. to pass the surface to
-        the GPU the shaders were dynamically compiled.
+        My thesis project, an algebraic surfaces renderer for iPhone. As the CPU was not powerful enough at the time. It
+        was implemented using the GPU. For this it used a custom Ray Tracer inside a Shader. For the communication of
+        the surface to the GPU the shaders were dynamically compiled.
       </p>
       <mat-card-actions>
         <a
@@ -71,12 +141,12 @@
       </mat-card-actions>
     </mat-card-content>
   </mat-card>
-  <mat-card class="dark">
+  <mat-card class="blue">
     <p>
-      <img class="smallWidth" src="assets/dreamlist.png" alt="TV Master" />
+      <img class="smallWidth" src="assets/dreamlist.png" alt="Dream List" />
     </p>
     <mat-card-content>
-      <mat-card-title translate>Dream List</mat-card-title>
+      <mat-card-title translate>Dream List <span class="year">2012</span></mat-card-title>
       <mat-card-subtitle>
         <span>C# / Javascript / Cordova</span>
       </mat-card-subtitle>
@@ -84,19 +154,78 @@
         A mobile application to track your dreams. It was designed for blackberry world Store
         <mat-card-actions>
           <a
-            href="hhttps://appworld.blackberry.com/webstore/content/35607888/?lang=en&countrycode=US"
+            href="https://appworld.blackberry.com/webstore/content/35607888/?lang=en&countrycode=US"
             target="blank"
             angulartics2On="click"
             angularticsAction="Open Dream List"
             angularticsCategory="projects"
           >
             <button mat-raised-button>
-              View code
+              Download App
               <mat-icon>launch</mat-icon>
             </button>
           </a>
         </mat-card-actions>
-      </p></mat-card-content
-    >
+      </p>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="purple">
+    <p>
+      <img class="border" src="assets/asteroids.png" alt="Asteroids Deluxe" />
+    </p>
+    <mat-card-content>
+      <mat-card-title translate>Asteroids Deluxe <span class="year">2010</span></mat-card-title>
+      <mat-card-subtitle>
+        <span>C# / Unity</span>
+      </mat-card-subtitle>
+      <p>
+        An Asteroids game designed for an university course. The game has two modes. 2D (Classic) and 2.5D(with the
+        camera behind the player). Was posted on Kongregate<mat-card-actions>
+          <a
+            href="http://daniazar.github.io/ITBA-asteroids/"
+            target="blank"
+            angulartics2On="click"
+            angularticsAction="Open Asteroids Game"
+            angularticsCategory="projects"
+          >
+            <button mat-raised-button>
+              Play game
+              <mat-icon>launch</mat-icon>
+            </button>
+          </a>
+        </mat-card-actions>
+      </p>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="blue">
+    <p>
+      <img class="border" src="assets/cityracer.png" alt="City Racing" />
+    </p>
+    <mat-card-content>
+      <mat-card-title translate>City Racing<span class="year">2010</span></mat-card-title>
+      <mat-card-subtitle>
+        <span>C# / Unity</span>
+      </mat-card-subtitle>
+      <p>
+        A procedural generated game designed for an university course. The game had infinite courses to race. The city
+        and road was procedurally generated, and a simple computer AI was made. Was posted on Kongregate were more than
+        10000 people played it.<mat-card-actions>
+          <p><Strong>Important: needs to be updated to use WebGL player</Strong></p>
+
+          <a
+            href="https://www.kongregate.com/games/daniazar/city-racing"
+            target="blank"
+            angulartics2On="click"
+            angularticsAction="Open City Racing on Kongregate"
+            angularticsCategory="projects"
+          >
+            <button mat-raised-button>
+              Play game
+              <mat-icon>launch</mat-icon>
+            </button>
+          </a>
+        </mat-card-actions>
+      </p>
+    </mat-card-content>
   </mat-card>
 </div>
