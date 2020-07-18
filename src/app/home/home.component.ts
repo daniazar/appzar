@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { Observable, Observer } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { CanvasExplosion } from './canvas-explosion';
+import { GridAnimation } from './grid/GridAnimation';
 import { QuoteService } from './quote.service';
 
 @Component({
@@ -14,8 +15,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   isLoading = false;
   ctx: CanvasRenderingContext2D;
   base64Image: string;
-  @ViewChild('logo', { static: false }) public png: ElementRef<HTMLImageElement>;
-  @ViewChild('canvasLogo', { static: false }) public canvas: ElementRef<HTMLCanvasElement>;
+  @ViewChild('logo', { static: true }) public png: ElementRef<HTMLImageElement>;
+  @ViewChild('canvasLogo', { static: true }) public canvas: ElementRef<HTMLCanvasElement>;
+  @ViewChild('canvasGrid', { static: true }) public canvasGrid: ElementRef<HTMLCanvasElement>;
   constructor(private quoteService: QuoteService) {}
 
   ngOnInit() {
@@ -63,6 +65,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   explosionInit(img: HTMLImageElement) {
     const canvasExp = new CanvasExplosion(this.canvas.nativeElement, img);
+    const gridAnimation = new GridAnimation(this.canvasGrid.nativeElement);
+    gridAnimation.play();
   }
 
   ngAfterViewInit() {
