@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { Observable, Observer } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { CanvasExplosion } from './canvas-explosion';
-import { GridAnimation } from './grid/GridAnimation';
+import { Grid } from './grid/Grid';
 import { QuoteService } from './quote.service';
 
 @Component({
@@ -65,8 +65,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   explosionInit(img: HTMLImageElement) {
     const canvasExp = new CanvasExplosion(this.canvas.nativeElement, img);
-    const gridAnimation = new GridAnimation(this.canvasGrid.nativeElement);
-    gridAnimation.play();
+    const gridAnimation = Grid.DefaultGrid(this.canvasGrid.nativeElement);
+    // const gridAnimation = new GridAnimation(this.canvasGrid.nativeElement);
+    // gridAnimation.play();
   }
 
   ngAfterViewInit() {

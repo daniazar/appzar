@@ -1,6 +1,30 @@
 import { Easing } from './Easing';
 import { GridDot } from './GridDot';
 import { GridLine } from './GridLine';
+import { throttle } from './Throttle';
+
+type Direction = 'up' | 'down' | 'left' | 'right';
+type Line = {
+  initialDirection: Direction;
+  currentDirection: Direction;
+  currentColor: string;
+  coordinates: [number, number][];
+};
+type Config = {
+  colors: string[];
+  speed: number;
+  squareSize: number;
+  maxLineLength: number;
+  lineWidth: number;
+  gridColor: string;
+};
+
+const allowedDirections: { [key in Direction]: Direction[] } = {
+  up: ['up', 'left', 'right'],
+  down: ['down', 'left', 'right'],
+  left: ['left', 'up', 'down'],
+  right: ['right', 'up', 'down'],
+};
 
 // Main animation class
 export class GridAnimation {
@@ -21,6 +45,13 @@ export class GridAnimation {
   public global_height: number;
   public ctx: CanvasRenderingContext2D;
   public startTime: Date;
+
+  pixelRatio: number;
+  speed = 30;
+  squareSize = 24;
+  line: Line[] = [];
+  lineColors: string[] = [];
+  lineWidth = 5;
 
   constructor(element: HTMLCanvasElement, duration: number = 2500, size: number = 64) {
     this.canvas = element;
@@ -207,6 +238,9 @@ export class GridAnimation {
       dot.draw(progress);
     }
 
+    if (Object.keys(this.lines).length !== 0) {
+      // this.shootLine();
+    }
     /////////////////////////////////////
     // high-dpi drawing end
     /////////////////////////////////////
@@ -221,4 +255,77 @@ export class GridAnimation {
     }
     this._draw();
   }
+
+  /*shootLine(): void {
+        for (const [line, index] of this.lines.map<[Line, number]>(
+            (line, index) => [line, index]
+        )) {
+            const { coordinates: lineCoords, currentColor: lineCurrentColor } = line;
+
+            this.ctx.beginPath();
+            this.ctx.moveTo(lineCoords[0][0], lineCoords[0][1]);
+            for (const coord of lineCoords) {
+                this.ctx.lineTo(coord[0], coord[1]);
+            }
+            //this.getNewCoordinates(line);
+//            this.limitLineLength(line);
+
+            this.ctx.lineWidth = this.lineWidth * this.pixelRatio;
+            this.ctx.strokeStyle = lineCurrentColor;
+            this.ctx.stroke();
+
+            // Check if end of canvas has been reached
+            const lastCoord = lineCoords[lineCoords.length - 1];
+            const xPos = lastCoord[0];
+            const yPos = lastCoord[1];
+            if (
+                xPos >= this.canvas.width ||
+                xPos <= 0 ||
+                yPos >= this.canvas.height ||
+                yPos <= 0
+            ) {
+                this.lines.splice(index, 1);
+            }
+        }
+    }
+
+    pickDirection(
+    availableDirections: Direction[] = ['down', 'left', 'right', 'up']
+  ): Direction {
+    return availableDirections[
+      Math.floor(Math.random() * availableDirections.length)
+    ];
+  }
+
+  pickLineColor(): string {
+    return this.lineColors[Math.floor(Math.random() * this.lineColors.length)];
+  }
+
+  getSquareLength(): number {
+    return this.squareSize * this.pixelRatio;
+  }
+
+    onMouseOver(event: MouseEvent): void {
+        const [x, y] = this.getClosestIntersectionCoordinates(event);
+        const direction = this.pickDirection();
+        this.lines.push({
+            coordinates: [[x, y]],
+            currentColor: this.pickLineColor(),
+            initialDirection: direction,
+            currentDirection: direction,
+        });
+    }
+/*
+    register(): void {
+        this.registeredCallback = throttle(this.onMouseOver.bind(this), 20);
+        this.canvas.addEventListener('mousemove', this.registeredCallback);
+        this.draw();
+    }
+
+    unregister(): void {
+        if (this.registeredCallback !== undefined) {
+            this.canvas.removeEventListener('mousemove', this.registeredCallback);
+            this.registeredCallback = undefined;
+        }
+    }*/
 }
