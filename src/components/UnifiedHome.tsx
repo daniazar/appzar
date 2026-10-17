@@ -248,8 +248,7 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
             </h1>
 
             <p className="mx-auto mt-3 max-w-xl text-base text-slate-200 sm:text-lg leading-relaxed">
-              {PROFILE.role} with 10+ years building cloud-scale backends, interactive computer graphics,
-              and real-time GPU neural rendering. Welcome to my unified portfolio &amp; engineering blog.
+              {PROFILE.heroSummary}
             </p>
           </div>
 
@@ -313,8 +312,8 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
                 Blog &amp; Articles
               </h2>
               <p className="mt-2 max-w-xl text-sm text-slate-400">
-                Deep-dive engineering articles on CUDA Graphs, TensorRT FP8/FP16, neural talking-head avatars,
-                WebGL2 algebraic surfaces, and cloud architecture.
+                In-depth architecture notes and benchmarks on CUDA Graphs, TensorRT FP8/FP16, agentic AI systems,
+                WebGL2/GLSL ray tracing, and full-stack cloud engineering.
               </p>
             </div>
 
@@ -489,14 +488,14 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#4ea8de]">
               <Briefcase className="h-4 w-4" />
-              <span>Portfolio &amp; Experiments</span>
+              <span>Systems, Studios &amp; Open-Source</span>
             </div>
             <h2 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Featured Projects
             </h2>
             <p className="mt-2 max-w-2xl text-sm text-slate-400">
-              A timeline of applications, GPU shader renderers, games, and open-source tools I&apos;ve
-              built over the years.
+              AI broadcast &amp; filmmaking studios, real-time GPU shader engines, full-stack SaaS platforms,
+              and open-source developer tools built from 2010 to 2026.
             </p>
           </div>
 
@@ -598,7 +597,7 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
                 <span>About Me</span>
               </div>
               <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                Engineering across AI, Computer Graphics &amp; Cloud
+                AI Systems, GPU Inference &amp; Full-Stack Architecture
               </h2>
 
               <div className="inline-flex items-center gap-2 text-xs text-slate-400">

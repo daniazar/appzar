@@ -19,12 +19,14 @@ export interface ProjectItem {
 
 export const PROFILE = {
   name: 'Daniel Azar',
-  role: 'Software Engineer',
-  tagline: 'Real-Time AI & Neural Video • Computer Graphics • Cloud Architecture',
+  role: 'Software & AI Systems Engineer',
+  tagline: 'AI Systems & Autonomous Agents • GPU Inference • Computer Graphics • Cloud Architecture',
+  heroSummary:
+    '15+ years architecting full-stack cloud platforms, interactive 3D graphics, agentic AI workflows, and sub-100ms GPU neural video & voice pipelines.',
   location: 'Argentina (Available Worldwide)',
   bio: [
-    'I am a Software Engineer specializing in Computer Graphics, Real-Time Neural Rendering, and Cloud Architecture, with 10+ years of experience across the industry. Based in Argentina and collaborating globally, I have worked across AI Systems, Backend, Frontend, Full-Stack, and DevOps roles—from freelance engineering and co-founding studio projects to serving as a Team Lead.',
-    'Recently, I have focused heavily on ultra-low-latency GPU inference on NVIDIA Blackwell (CUDA Graphs, TensorRT FP8/FP16, custom Triton kernels, WebGPU, and zero-copy NVENC/WebRTC streaming) for real-time talking-head avatars and neural voice cloning.',
+    'I am a Software & AI Systems Engineer with 15+ years of experience designing and shipping production software across AI, Computer Graphics, Cloud Architecture, and Full-Stack Web. Based in Argentina and collaborating worldwide, I have worked as a Technical Lead, Principal Engineer, startup co-founder (MoltenMinds), and hands-on systems builder.',
+    'My recent work spans autonomous multi-agent engineering workflows (CineZero, Molten AI Agent, Jules), real-time GPU inference on NVIDIA Blackwell (TensorRT FP8/FP16, CUDA Graphs, fused Triton kernels, zero-copy NVENC/WebRTC streaming, and neural TTS), and browser-native 3D mathematical and spatial studios (SurfZar, ArchitecturaAI) built with WebGL2, WebGPU, Next.js, and TypeScript.',
   ],
   skills: [
     {
@@ -34,20 +36,21 @@ export const PROFILE = {
         'CUDA Graphs',
         'TensorRT (FP8/FP16)',
         'Triton Kernels',
-        'WebGPU',
+        'Agentic AI & MCP',
+        'WebGPU & WebGL2',
         'ONNX Runtime',
-        'OpenGL ES 2 / GLSL Shaders',
+        'GLSL Shaders',
         'NVENC / NVDEC',
-        'Unity 3D',
+        'Three.js / R3F',
       ],
     },
     {
       category: 'Backend, Streaming & Cloud',
-      items: ['C# / .NET', 'Java / Spring', 'Python / FastAPI', 'Go', 'C++ SIMD AVX2', 'WebRTC', 'Azure', 'AWS', 'Google Cloud', 'Redis'],
+      items: ['TypeScript / Node.js', 'Python / FastAPI', 'C# / .NET', 'Go', 'Java / Spring', 'C++ SIMD AVX2', 'WebRTC', 'Supabase / PostgreSQL', 'Azure / AWS / GCP', 'SecDevOps'],
     },
     {
       category: 'Frontend, Desktop & Mobile',
-      items: ['TypeScript', 'React', 'Next.js', 'Angular', 'Remotion', 'Dart / Flutter', 'Electron', 'WinUI 3'],
+      items: ['React 19', 'Next.js 15/16', 'Tailwind CSS', 'Angular', 'Remotion', 'Dart / Flutter', 'Electron', 'WinUI 3'],
     },
   ],
   socials: [
