@@ -1,0 +1,35 @@
+{
+  "timestamp": "2026-09-21 05:36:22",
+  "hardware": "NVIDIA GeForce RTX 5090 Laptop GPU (Blackwell sm_120)",
+  "neural_fusion": {
+    "legacy_forward_ms": 97.052,
+    "fused_forward_ms": 97.3,
+    "speedup_pct": -0.3,
+    "memory_saved_mb_per_batch": 64.0
+  },
+  "encoding": {
+    "ffmpeg_pipe_fps": 153.5,
+    "direct_nvenc_fps": 209.1,
+    "speedup_factor": 1.36
+  },
+  "streaming_ttff": {
+    "Chunk 16 (640ms)": {
+      "chunk_frames": 16,
+      "chunk_duration_ms": 640.0,
+      "ttff_ms": 748.17,
+      "streaming_fps": 35.2
+    },
+    "Chunk 8 (320ms)": {
+      "chunk_frames": 8,
+      "chunk_duration_ms": 320.0,
+      "ttff_ms": 271.88,
+      "streaming_fps": 36.3
+    },
+    "Chunk 4 (160ms)": {
+      "chunk_frames": 4,
+      "chunk_duration_ms": 160.0,
+      "ttff_ms": 294.21,
+      "streaming_fps": 20.1
+    }
+  }
+}
