@@ -91,6 +91,33 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const prevPost = postIndex > 0 ? posts[postIndex - 1] : null;
   const nextPost = postIndex < posts.length - 1 ? posts[postIndex + 1] : null;
 
+  const seriesPrefixes = [
+    'isurfer-',
+    'molten-ai-',
+    'surfzar-',
+    'architectura-ai-',
+    'engineering_blog_musetalk_',
+    'engineering_blog_ditto_',
+    'engineering_blog_kokoro_',
+    'engineering_blog_chatterbox_',
+    'engineering_blog_qwen3_',
+    'engineering_blog_fish_',
+  ];
+  const matchedPrefix = seriesPrefixes.find((prefix) => post.slug.startsWith(prefix));
+  const relatedPosts = posts
+    .filter((p) => p.slug !== post.slug)
+    .map((candidate) => {
+      let score = 0;
+      if (matchedPrefix && candidate.slug.startsWith(matchedPrefix)) score += 10;
+      const sharedTags = candidate.tags.filter((t) => post.tags.includes(t)).length;
+      score += sharedTags * 2;
+      return { candidate, score };
+    })
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3)
+    .map((item) => item.candidate);
+
   const canonicalUrl = `${SITE_URL}/posts/${post.slug}/`;
   const heroImage = post.contentImg || post.thumbImg;
   const jsonLd = {
@@ -227,8 +254,39 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <MarkdownRenderer content={post.content} />
             </div>
 
+            {/* Related / Companion Articles in Series or Topic */}
+            {relatedPosts.length > 0 && (
+              <div className="mt-14 border-t border-slate-800 pt-8">
+                <h2 className="text-sm font-bold uppercase tracking-wider text-[#80ffdb]">
+                  Related Articles &amp; Companion Deep-Dives
+                </h2>
+                <div className="mt-4 grid gap-4 sm:grid-cols-3">
+                  {relatedPosts.map((rel) => (
+                    <Link
+                      key={rel.slug}
+                      href={`/posts/${rel.slug}`}
+                      className="group flex flex-col justify-between rounded-xl border border-slate-800/90 bg-slate-900/50 p-4 hover:border-[#4ea8de]/60 hover:bg-slate-900 transition-all"
+                    >
+                      <div>
+                        <span className="text-[11px] font-medium text-slate-400">
+                          {formatDate(rel.date)} • {rel.readingTime}
+                        </span>
+                        <h3 className="mt-1.5 text-sm font-bold text-white group-hover:text-[#64dfdf] transition-colors line-clamp-3">
+                          {rel.title}
+                        </h3>
+                      </div>
+                      <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-[#64dfdf]">
+                        <span>Read article</span>
+                        <ChevronRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Next / Previous Article Cards */}
-            <div className="mt-14 grid gap-4 border-t border-slate-800 pt-8 sm:grid-cols-2">
+            <div className="mt-10 grid gap-4 border-t border-slate-800 pt-8 sm:grid-cols-2">
               {prevPost ? (
                 <Link
                   href={`/posts/${prevPost.slug}`}

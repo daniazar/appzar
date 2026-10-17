@@ -7,11 +7,11 @@ tags: ["AI & Agents", "TypeScript & Web"]
 coverImage: "/images/covers/molten-ai-agent-master-thesis.webp"
 ---
 
-In my [**Master's Thesis overview of Molten AI Agent**](/posts/molten-ai-agent-master-thesis), I shared the empirical results and product workflow of our 7-stage autonomous Business Analyst & Project Management system.
+In my [**MBA Master's Thesis overview of Molten AI Agent**](/posts/molten-ai-agent-master-thesis), I shared the empirical results and product workflow of our 7-stage autonomous Business Analyst & Project Management system.
 
 In this follow-up technical post, I want to look directly at the **TypeScript API routes and Zod schema pipelines** (`app/api/generate-tasks/route.ts`, `app/api/enrich-task-advanced/route.ts`, `app/api/decompose-task/route.ts`, and `app/api/decompose-to-epic/route.ts`) that solved the hardest engineering problem in the thesis: **preventing "Single-Prompt Scope Collapse" when LLMs estimate and decompose software architectures.**
 
-![Molten AI Agent — Customizable Multi-Dimensional Task Enrichment Pipeline](/assets/molten-ai/task-enrichment.webp)
+![Molten AI Agent — Customizable Multi-Dimensional Task Enrichment Pipeline](/assets/molten-ai/step5-enrichment-config.webp)
 
 ---
 

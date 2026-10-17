@@ -22,11 +22,38 @@ export const PROFILE = {
   role: 'Software & AI Systems Engineer',
   tagline: 'AI Systems & Autonomous Agents • GPU Inference • Computer Graphics • Cloud Architecture',
   heroSummary:
-    '15+ years architecting full-stack cloud platforms, interactive 3D graphics, agentic AI workflows, and sub-100ms GPU neural video & voice pipelines.',
+    '15+ years architecting full-stack cloud platforms, interactive 3D graphics, agentic AI systems, and sub-100ms GPU neural pipelines — across high-paced AI startups like Scale AI, enterprise cloud teams, and my own ventures.',
   location: 'Argentina (Available Worldwide)',
   bio: [
-    'I am a Software & AI Systems Engineer with 15+ years of experience designing and shipping production software across AI, Computer Graphics, Cloud Architecture, and Full-Stack Web. Based in Argentina and collaborating worldwide, I have worked as a Technical Lead, Principal Engineer, startup co-founder (MoltenMinds), and hands-on systems builder.',
-    'My recent work spans autonomous multi-agent engineering workflows (CineZero, Molten AI Agent, Jules), real-time GPU inference on NVIDIA Blackwell (TensorRT FP8/FP16, CUDA Graphs, fused Triton kernels, zero-copy NVENC/WebRTC streaming, and neural TTS), and browser-native 3D mathematical and spatial studios (SurfZar, ArchitecturaAI) built with WebGL2, WebGPU, Next.js, and TypeScript.',
+    'I am a Software & AI Systems Engineer with 15+ years of experience designing and shipping production software across AI, Computer Graphics, Cloud Architecture, and Full-Stack Web. Based in Argentina and collaborating worldwide, I have worked at high-paced AI startups like Scale AI, served as a Technical Lead & Principal Engineer, and co-founded the cloud & SecDevOps consultancy MoltenMinds.',
+    'I hold an MBA (Master in Business Administration, 2025) where my thesis researched autonomous AI business analysts and recursive Fibonacci agile backlog engines (Molten AI Agent), alongside a Software Engineering degree (Ingeniería Informática) from ITBA (2013), where my undergraduate thesis pioneered real-time per-pixel GPU algebraic surface ray tracing on mobile silicon (iSurfer).',
+    'My recent engineering work spans autonomous multi-agent workflows (CineZero, Molten AI Agent, Jules), real-time GPU inference on NVIDIA Blackwell (TensorRT FP8/FP16, CUDA Graphs, fused Triton kernels, zero-copy NVENC/WebRTC streaming, and neural TTS), and browser-native 3D mathematical and spatial studios (SurfZar, ArchitecturaAI) built with WebGL2, WebGPU, Next.js, and TypeScript.',
+  ],
+  highlights: [
+    { value: '15+ yrs', label: 'Production Software & Systems Engineering' },
+    { value: 'Scale AI', label: 'High-Paced AI Startup & Tech Lead Experience' },
+    { value: '90+ FPS', label: 'Blackwell FP8/FP16 Real-Time GPU Video AI' },
+    { value: 'MBA + ITBA', label: 'Business Administration & Software Engineering' },
+  ],
+  education: [
+    {
+      degree: 'MBA — Master in Business Administration',
+      institution: 'Master’s Degree',
+      year: '2025',
+      thesis: 'Thesis: Molten AI Agent — Autonomous Business Analyst & Recursive Fibonacci Backlog Engine',
+      thesisUrl: '/posts/molten-ai-agent-master-thesis',
+    },
+    {
+      degree: 'Software Engineering (Ingeniería Informática)',
+      institution: 'ITBA — Instituto Tecnológico de Buenos Aires',
+      year: '2013',
+      thesis: 'Thesis: iSurfer — Real-Time GPU Algebraic Surface Ray Tracer in OpenGL ES 2.0',
+      thesisUrl: '/posts/isurfer-gpu-algebraic-surface-raytracer',
+    },
+  ],
+  languages: [
+    { name: 'Spanish', level: 'Native' },
+    { name: 'English', level: 'Fluent / Bilingual Professional' },
   ],
   skills: [
     {
@@ -318,7 +345,7 @@ export const PROJECTS: ProjectItem[] = [
     year: '2025',
     tech: ['Next.js 14', 'TypeScript', 'Vercel AI SDK', 'OpenAI', 'Zod Schemas', 'Supabase RLS', 'Tailwind CSS'],
     description:
-      "My Master's Thesis project: a 7-stage agentic AI platform that transforms raw product ideas into structured Business Analyst specifications, generates role-based tasks with Fibonacci story points, recursively decomposes complex tasks (≥8 pts) into Epics and sub-tasks, and manages execution on a persistent Kanban board.",
+      "My MBA Master's Thesis project: a 7-stage agentic AI platform that transforms raw product ideas into structured Business Analyst specifications, generates role-based tasks with Fibonacci story points, recursively decomposes complex tasks (≥8 pts) into Epics and sub-tasks, and manages execution on a persistent Kanban board.",
     image: '/images/thumbs/molten-ai-agent-master-thesis.webp',
     accent: 'amber',
     links: [

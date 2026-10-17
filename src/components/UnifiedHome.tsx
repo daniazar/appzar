@@ -22,6 +22,8 @@ import {
   Terminal,
   Layers,
   Cpu,
+  GraduationCap,
+  Award,
 } from 'lucide-react';
 import GridCanvas from './GridCanvas';
 import ParticlePortrait from './ParticlePortrait';
@@ -589,20 +591,48 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
       {/* About & Skills Section */}
       <section id="about" className="scroll-mt-16 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="grid gap-10 lg:grid-cols-12">
-            {/* Bio Column */}
-            <div className="lg:col-span-7 space-y-5">
-              <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-purple-400">
-                <User className="h-4 w-4" />
-                <span>About Me</span>
+          {/* Career & Impact Highlights Strip */}
+          <div className="mb-12 grid grid-cols-2 gap-4 lg:grid-cols-4">
+            {PROFILE.highlights.map((item) => (
+              <div
+                key={item.value}
+                className="rounded-2xl border border-slate-800/90 bg-slate-900/50 p-5 transition-colors hover:border-[#4ea8de]/50"
+              >
+                <div className="flex items-center gap-2 text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-[#80ffdb] bg-clip-text text-transparent">
+                  <Award className="h-5 w-5 text-[#64dfdf] shrink-0" />
+                  <span>{item.value}</span>
+                </div>
+                <p className="mt-1.5 text-xs sm:text-sm text-slate-400 leading-snug">{item.label}</p>
               </div>
-              <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                AI Systems, GPU Inference &amp; Full-Stack Architecture
-              </h2>
+            ))}
+          </div>
 
-              <div className="inline-flex items-center gap-2 text-xs text-slate-400">
-                <MapPin className="h-4 w-4 text-[#64dfdf]" />
-                <span>{PROFILE.location}</span>
+          <div className="grid gap-10 lg:grid-cols-12">
+            {/* Bio + Education Column */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="space-y-4">
+                <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-purple-400">
+                  <User className="h-4 w-4" />
+                  <span>About Me</span>
+                </div>
+                <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                  AI Systems, GPU Inference &amp; Full-Stack Architecture
+                </h2>
+
+                <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400">
+                  <span className="inline-flex items-center gap-1.5">
+                    <MapPin className="h-4 w-4 text-[#64dfdf]" />
+                    <span>{PROFILE.location}</span>
+                  </span>
+                  {PROFILE.languages.map((lang) => (
+                    <span
+                      key={lang.name}
+                      className="rounded-full border border-slate-800 bg-slate-900/80 px-2.5 py-0.5 text-[11px] text-slate-300"
+                    >
+                      {lang.name}: <strong className="text-white font-semibold">{lang.level}</strong>
+                    </span>
+                  ))}
+                </div>
               </div>
 
               <div className="space-y-4 text-slate-300 leading-relaxed text-[15.5px]">
@@ -610,9 +640,37 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
                   <p key={i}>{paragraph}</p>
                 ))}
               </div>
+
+              {/* Education & Academic Theses Card */}
+              <div className="rounded-2xl border border-slate-800/90 bg-slate-900/60 p-6">
+                <div className="flex items-center gap-2 text-sm font-bold text-white">
+                  <GraduationCap className="h-5 w-5 text-[#80ffdb]" />
+                  <span>Education &amp; Academic Theses</span>
+                </div>
+                <div className="mt-4 space-y-4 divide-y divide-slate-800/80">
+                  {PROFILE.education.map((edu, idx) => (
+                    <div key={edu.degree} className={idx > 0 ? 'pt-4' : ''}>
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <h3 className="text-sm sm:text-base font-bold text-white">{edu.degree}</h3>
+                        <span className="rounded-full border border-[#4ea8de]/30 bg-[#4ea8de]/10 px-2.5 py-0.5 text-xs font-semibold text-[#80ffdb]">
+                          {edu.year}
+                        </span>
+                      </div>
+                      <p className="mt-0.5 text-xs font-medium text-slate-400">{edu.institution}</p>
+                      <Link
+                        href={edu.thesisUrl}
+                        className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-[#64dfdf] hover:text-[#80ffdb] transition-colors"
+                      >
+                        <span>{edu.thesis}</span>
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
-            {/* Tech Stack Column */}
+            {/* Tech Stack + Contact CTA Column */}
             <div className="lg:col-span-5 space-y-4">
               {PROFILE.skills.map((group, idx) => {
                 const icons = [
@@ -642,6 +700,44 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
                   </div>
                 );
               })}
+
+              {/* Direct Consulting / Collaboration Card */}
+              <div className="rounded-2xl border border-[#5e60ce]/40 bg-gradient-to-br from-[#5e60ce]/15 via-slate-900/90 to-[#4ea8de]/10 p-6">
+                <h3 className="text-base font-bold text-white">
+                  Architecture, AI Systems &amp; Advisory
+                </h3>
+                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-300">
+                  Building an agentic AI product, optimizing a GPU inference pipeline, or scaling a cloud-native platform? Feel free to reach out directly or via{' '}
+                  <a
+                    href="https://www.moltenminds.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-[#80ffdb] underline decoration-[#80ffdb]/40 underline-offset-2 hover:text-white"
+                  >
+                    MoltenMinds
+                  </a>
+                  .
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2.5">
+                  <button
+                    type="button"
+                    onClick={handleEmailClick}
+                    className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#5e60ce] to-[#4ea8de] px-4 py-2 text-xs font-semibold text-white shadow-md shadow-[#5e60ce]/20 hover:brightness-110 transition-all"
+                  >
+                    <Mail className="h-3.5 w-3.5" />
+                    <span>Get in Touch</span>
+                  </button>
+                  <a
+                    href="https://ar.linkedin.com/in/daniazar/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-900/90 px-4 py-2 text-xs font-semibold text-slate-200 hover:border-[#4ea8de] hover:text-white transition-colors"
+                  >
+                    <span>Connect on LinkedIn</span>
+                    <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
