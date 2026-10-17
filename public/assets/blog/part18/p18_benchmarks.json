@@ -1,0 +1,112 @@
+{
+  "timestamp": "2026-09-17T22:29:40Z",
+  "device": "NVIDIA GeForce RTX 5090 Laptop GPU",
+  "architecture": "Blackwell sm_120",
+  "cuda_version": "12.8",
+  "tensorrt_version": "10.15",
+  "lmdm_diffusion": {
+    "timesteps": [
+      1,
+      2,
+      4,
+      10,
+      50
+    ],
+    "pytorch_latency_ms": [
+      24.34,
+      51.89,
+      90.5,
+      274.06,
+      1118.95
+    ],
+    "trt_latency_ms": [
+      5.05,
+      9.8,
+      19.65,
+      49.12,
+      249.04
+    ],
+    "speedup_factor": [
+      4.82,
+      5.29,
+      4.61,
+      5.58,
+      4.49
+    ],
+    "trt_effective_fps": [
+      15847.4,
+      8161.8,
+      4071.9,
+      1628.7,
+      321.2
+    ],
+    "cosine_similarity": [
+      0.993944,
+      0.993341,
+      0.992792,
+      0.991881,
+      0.991363
+    ],
+    "mae": [
+      0.002984,
+      0.002979,
+      0.003156,
+      0.003457,
+      0.003645
+    ],
+    "single_step_ms": 5.24
+  },
+  "kinematic_smoothing": {
+    "num_frames": 165,
+    "smoothing_runtime_ms": 2.53,
+    "mean_jerk_raw": 23.31,
+    "mean_jerk_smooth": 19.76,
+    "max_jerk_raw": 183.58,
+    "max_jerk_smooth": 161.35,
+    "jerk_reduction_pct": 15.2,
+    "oral_expression_mae": 0.0,
+    "oral_plosive_correlation": 1.0
+  },
+  "waterfall_latency": {
+    "stages": [
+      "HuBERT Audio Extr.",
+      "LMDM Diffusion (4-Step)",
+      "Kinematic C\u00b2 Smooth",
+      "Landmark Stitching",
+      "DenseMotion + Decoder",
+      "FFmpeg Video Encode"
+    ],
+    "baseline_ms": [
+      248.0,
+      342.0,
+      0.0,
+      68.0,
+      5240.0,
+      1520.0
+    ],
+    "part17_ms": [
+      19.5,
+      335.0,
+      0.0,
+      62.0,
+      2450.0,
+      220.0
+    ],
+    "part18_ms": [
+      9.8,
+      19.6,
+      5.3,
+      58.0,
+      2180.0,
+      140.0
+    ],
+    "baseline_total_s": 7.42,
+    "part17_total_s": 3.09,
+    "part18_total_s": 2.41,
+    "baseline_fps": 22.2,
+    "part17_fps": 53.5,
+    "part18_fps": 68.4,
+    "part18_render_fps": 71.1,
+    "speedup_vs_baseline": 3.07
+  }
+}
