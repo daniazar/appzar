@@ -28,7 +28,13 @@ import {
 import GridCanvas from './GridCanvas';
 import ParticlePortrait from './ParticlePortrait';
 import type { BlogPostSummary } from '@/lib/posts';
-import { PROFILE, PROJECTS, type ProjectItem } from '@/lib/data';
+import {
+  PROFILE,
+  PROJECTS,
+  FEATURED_SERIES,
+  type ProjectItem,
+  type ProjectCategory,
+} from '@/lib/data';
 
 interface UnifiedHomeProps {
   posts: BlogPostSummary[];
@@ -125,10 +131,24 @@ const ACCENT_STYLES: Record<ProjectItem['accent'], { badge: string; border: stri
   },
 };
 
+const PROJECT_CATEGORIES: Array<'All' | ProjectCategory> = [
+  'All',
+  'AI & GPU Systems',
+  '3D & Graphics',
+  'Cloud & Full-Stack',
+  'Games & Open-Source',
+];
+
 export default function UnifiedHome({ posts }: UnifiedHomeProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState<string>('All');
   const [showAllPosts, setShowAllPosts] = useState(false);
+  const [selectedProjectCategory, setSelectedProjectCategory] = useState<'All' | ProjectCategory>('All');
+
+  const filteredProjects = useMemo(() => {
+    if (selectedProjectCategory === 'All') return PROJECTS;
+    return PROJECTS.filter((p) => p.category === selectedProjectCategory);
+  }, [selectedProjectCategory]);
 
   const allTags = useMemo(() => {
     const canonicalOrder = [
@@ -332,6 +352,60 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
             </div>
           </div>
 
+          {/* Curated Reading Tracks / Featured Series */}
+          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {FEATURED_SERIES.map((series) => {
+              const style = ACCENT_STYLES[series.accent];
+              const isSelected = selectedTag === series.filterTag;
+              return (
+                <div
+                  key={series.id}
+                  className={`relative flex flex-col justify-between rounded-2xl border bg-slate-900/60 p-4 transition-all ${
+                    isSelected
+                      ? 'border-[#4ea8de] bg-slate-900/95 shadow-lg shadow-[#4ea8de]/10'
+                      : `border-slate-800/90 ${style.border}`
+                  }`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-2">
+                      <span
+                        className={`rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${style.badge}`}
+                      >
+                        {series.badge}
+                      </span>
+                      <Layers className="h-3.5 w-3.5 text-slate-500" />
+                    </div>
+                    <h3 className="mt-2.5 text-sm font-bold text-white leading-snug">
+                      {series.title}
+                    </h3>
+                    <p className="mt-1.5 text-xs text-slate-400 leading-relaxed line-clamp-3">
+                      {series.description}
+                    </p>
+                  </div>
+
+                  <div className="mt-4 flex items-center justify-between gap-2 border-t border-slate-800/80 pt-3">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setSelectedTag((prev) => (prev === series.filterTag ? 'All' : series.filterTag))
+                      }
+                      className="text-[11px] font-semibold text-[#64dfdf] hover:text-[#80ffdb] transition-colors"
+                    >
+                      {isSelected ? 'Showing Track ✓' : `Filter: ${series.filterTag}`}
+                    </button>
+                    <Link
+                      href={series.leadPostUrl}
+                      className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-300 hover:text-white transition-colors"
+                    >
+                      <span>Start Series</span>
+                      <ArrowRight className="h-3 w-3" />
+                    </Link>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
           {/* Tag Filters */}
           <div className="mt-6 flex flex-wrap items-center gap-2">
             {allTags.map((tag) => {
@@ -487,22 +561,49 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
       {/* Projects Section */}
       <section id="projects" className="scroll-mt-16 py-16 sm:py-20 border-b border-slate-800/80">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div>
-            <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#4ea8de]">
-              <Briefcase className="h-4 w-4" />
-              <span>Systems, Studios &amp; Open-Source</span>
+          <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+            <div>
+              <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#4ea8de]">
+                <Briefcase className="h-4 w-4" />
+                <span>Systems, Studios &amp; Open-Source</span>
+              </div>
+              <h2 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                Featured Projects
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm text-slate-400">
+                AI broadcast &amp; filmmaking studios, real-time GPU shader engines, full-stack SaaS platforms,
+                and open-source developer tools built from 2010 to 2026.
+              </p>
             </div>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Featured Projects
-            </h2>
-            <p className="mt-2 max-w-2xl text-sm text-slate-400">
-              AI broadcast &amp; filmmaking studios, real-time GPU shader engines, full-stack SaaS platforms,
-              and open-source developer tools built from 2010 to 2026.
-            </p>
+
+            {/* Project Category Filter Pills */}
+            <div className="flex flex-wrap items-center gap-2">
+              {PROJECT_CATEGORIES.map((cat) => {
+                const active = selectedProjectCategory === cat;
+                const count =
+                  cat === 'All'
+                    ? PROJECTS.length
+                    : PROJECTS.filter((p) => p.category === cat).length;
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setSelectedProjectCategory(cat)}
+                    className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition-all ${
+                      active
+                        ? 'bg-[#4ea8de] text-slate-950 font-semibold shadow-sm shadow-[#4ea8de]/30'
+                        : 'border border-slate-800 bg-slate-900/70 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                    }`}
+                  >
+                    {cat} ({count})
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           <div className="mt-10 grid gap-6 md:grid-cols-2">
-            {PROJECTS.map((project) => {
+            {filteredProjects.map((project) => {
               const style = ACCENT_STYLES[project.accent];
               return (
                 <div
@@ -524,6 +625,9 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
                       decoding="async"
                       className="max-h-full w-auto rounded-lg object-contain transition-transform duration-500 group-hover:scale-[1.03]"
                     />
+                    <span className="absolute top-3 left-3 rounded-md border border-slate-700/80 bg-slate-950/85 px-2.5 py-0.5 text-[11px] font-medium text-slate-300 backdrop-blur-md">
+                      {project.category}
+                    </span>
                     <span
                       className={`absolute top-3 right-3 rounded-full border px-3 py-0.5 text-xs font-bold backdrop-blur-md ${style.badge}`}
                     >
@@ -608,7 +712,7 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
           </div>
 
           <div className="grid gap-10 lg:grid-cols-12">
-            {/* Bio + Education Column */}
+            {/* Bio + Career Timeline + Education Column */}
             <div className="lg:col-span-7 space-y-6">
               <div className="space-y-4">
                 <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-purple-400">
@@ -639,6 +743,31 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
                 {PROFILE.bio.map((paragraph, i) => (
                   <p key={i}>{paragraph}</p>
                 ))}
+              </div>
+
+              {/* Career & Startup Timeline Card */}
+              <div className="rounded-2xl border border-slate-800/90 bg-slate-900/60 p-6">
+                <div className="flex items-center gap-2 text-sm font-bold text-white">
+                  <Briefcase className="h-5 w-5 text-[#4ea8de]" />
+                  <span>Career, Startups &amp; Engineering Timeline</span>
+                </div>
+                <div className="mt-5 relative border-l border-slate-800 pl-5 space-y-6">
+                  {PROFILE.timeline.map((item) => (
+                    <div key={item.period} className="relative">
+                      <span className="absolute -left-[25px] top-1.5 h-2.5 w-2.5 rounded-full border border-[#80ffdb] bg-[#4ea8de]" />
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <h3 className="text-sm sm:text-base font-bold text-white">{item.role}</h3>
+                        <span className="rounded-full border border-purple-500/30 bg-purple-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-purple-300">
+                          {item.period}
+                        </span>
+                      </div>
+                      <p className="mt-0.5 text-xs font-semibold text-[#64dfdf]">{item.org}</p>
+                      <p className="mt-1.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {/* Education & Academic Theses Card */}

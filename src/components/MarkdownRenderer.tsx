@@ -5,8 +5,10 @@ import remarkMath from 'remark-math';
 import rehypeRaw from 'rehype-raw';
 import rehypeKatex from 'rehype-katex';
 import { normalizeAssetPath } from '@/lib/posts';
+import { renderHighlightedCode, slugifyHeading } from '@/lib/syntaxHighlight';
 import MermaidDiagram from './MermaidDiagram';
 import DiagramBlockRenderer from './DiagramBlockRenderer';
+import { CopyCodeButton, ZoomableImage } from './ArticleClientEnhancements';
 
 interface MarkdownRendererProps {
   content: string;
@@ -26,6 +28,19 @@ function normalizeHref(href?: string): string | undefined {
     return `/${href.replace(/^(\.\.\/|\.\/)+/, '')}`;
   }
   return href;
+}
+
+function extractText(node: React.ReactNode): string {
+  if (typeof node === 'string' || typeof node === 'number') {
+    return String(node);
+  }
+  if (Array.isArray(node)) {
+    return node.map(extractText).join('');
+  }
+  if (React.isValidElement<{ children?: React.ReactNode }>(node)) {
+    return extractText(node.props.children);
+  }
+  return '';
 }
 
 function looksLikeDiagramBlock(text: string, lang?: string): boolean {
@@ -52,20 +67,58 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
         remarkPlugins={[remarkGfm, remarkMath]}
         rehypePlugins={[rehypeRaw, rehypeKatex]}
         components={{
-          h1: ({ children }) => (
-            <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight pt-6 pb-2 border-b border-slate-800/80">
-              {children}
-            </h1>
-          ),
-          h2: ({ children }) => (
-            <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight pt-6 pb-1 flex items-center gap-2">
-              <span className="inline-block h-5 w-1 shrink-0 rounded-full bg-gradient-to-b from-[#4ea8de] to-[#80ffdb]" />
-              <span>{children}</span>
-            </h2>
-          ),
-          h3: ({ children }) => (
-            <h3 className="text-lg sm:text-xl font-semibold text-slate-100 pt-4">{children}</h3>
-          ),
+          h1: ({ children }) => {
+            const id = slugifyHeading(extractText(children));
+            return (
+              <h1
+                id={id}
+                className="scroll-mt-20 text-2xl sm:text-3xl font-bold text-white tracking-tight pt-6 pb-2 border-b border-slate-800/80"
+              >
+                {children}
+              </h1>
+            );
+          },
+          h2: ({ children }) => {
+            const id = slugifyHeading(extractText(children));
+            return (
+              <h2
+                id={id}
+                className="group scroll-mt-20 text-xl sm:text-2xl font-bold text-white tracking-tight pt-6 pb-1 flex items-center gap-2"
+              >
+                <span className="inline-block h-5 w-1 shrink-0 rounded-full bg-gradient-to-b from-[#4ea8de] to-[#80ffdb]" />
+                <span>{children}</span>
+                {id && (
+                  <a
+                    href={`#${id}`}
+                    aria-label="Section link"
+                    className="ml-1 text-sm font-normal text-slate-500 opacity-0 hover:text-[#80ffdb] group-hover:opacity-100 transition-opacity"
+                  >
+                    #
+                  </a>
+                )}
+              </h2>
+            );
+          },
+          h3: ({ children }) => {
+            const id = slugifyHeading(extractText(children));
+            return (
+              <h3
+                id={id}
+                className="group scroll-mt-20 text-lg sm:text-xl font-semibold text-slate-100 pt-4 flex items-center gap-1.5"
+              >
+                <span>{children}</span>
+                {id && (
+                  <a
+                    href={`#${id}`}
+                    aria-label="Subsection link"
+                    className="text-xs font-normal text-slate-500 opacity-0 hover:text-[#80ffdb] group-hover:opacity-100 transition-opacity"
+                  >
+                    #
+                  </a>
+                )}
+              </h3>
+            );
+          },
           h4: ({ children }) => (
             <h4 className="text-base sm:text-lg font-semibold text-slate-200 pt-3">{children}</h4>
           ),
@@ -121,13 +174,12 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
 
             return (
               <pre className="my-5 overflow-x-auto rounded-xl border border-slate-800 bg-[#070a12] p-4 shadow-inner">
-                {lang && (
-                  <div className="mb-2 flex items-center justify-between border-b border-slate-800/80 pb-1.5 text-[11px] font-mono uppercase tracking-wider text-slate-500">
-                    <span>{lang}</span>
-                  </div>
-                )}
+                <div className="mb-2.5 flex items-center justify-between border-b border-slate-800/80 pb-2 text-[11px] font-mono uppercase tracking-wider text-slate-400">
+                  <span>{lang || 'code'}</span>
+                  <CopyCodeButton code={codeText} />
+                </div>
                 <code className="block font-mono text-[13px] leading-6 text-slate-100" {...props}>
-                  {codeText}
+                  {renderHighlightedCode(codeText)}
                 </code>
               </pre>
             );
@@ -147,21 +199,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           img: ({ src, alt }) => {
             const srcStr = typeof src === 'string' ? src : undefined;
             const normalizedSrc = normalizeImageUrl(srcStr);
-            return (
-              <span className="my-6 block overflow-hidden rounded-xl border border-slate-800/90 bg-slate-950/60 p-2 shadow-lg">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={normalizedSrc}
-                  alt={alt || ''}
-                  loading="lazy"
-                  decoding="async"
-                  className="mx-auto max-h-[560px] w-auto rounded-lg object-contain"
-                />
-                {alt && (
-                  <span className="mt-2 block text-center text-xs text-slate-400 italic">{alt}</span>
-                )}
-              </span>
-            );
+            return <ZoomableImage src={normalizedSrc} alt={alt} />;
           },
         }}
       >
@@ -170,3 +208,4 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
     </div>
   );
 }
+

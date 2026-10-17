@@ -10,11 +10,94 @@ import {
   Clock,
   ChevronLeft,
   ChevronRight,
+  List,
+  Layers,
 } from 'lucide-react';
-import { getAllPosts, getPostBySlug } from '@/lib/posts';
+import { getAllPosts, getPostBySlug, type BlogPost } from '@/lib/posts';
+import { slugifyHeading } from '@/lib/syntaxHighlight';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
+import { ReadingProgressBar, ArticleShareBar } from '@/components/ArticleClientEnhancements';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.appzar.com.ar';
+
+interface TocHeading {
+  level: 2 | 3;
+  text: string;
+  id: string;
+}
+
+function extractHeadings(markdown: string): TocHeading[] {
+  const headings: TocHeading[] = [];
+  let inCodeBlock = false;
+  for (const rawLine of markdown.split(/\r?\n/)) {
+    const trimmed = rawLine.trim();
+    if (trimmed.startsWith('```')) {
+      inCodeBlock = !inCodeBlock;
+      continue;
+    }
+    if (inCodeBlock) continue;
+
+    const match = trimmed.match(/^(#{2,3})\s+(.+)$/);
+    if (match) {
+      const level = match[1].length as 2 | 3;
+      const cleanText = match[2]
+        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+        .replace(/[`*_~]/g, '')
+        .trim();
+      const id = slugifyHeading(cleanText);
+      if (id && cleanText) {
+        headings.push({ level, text: cleanText, id });
+      }
+    }
+  }
+  return headings;
+}
+
+const SERIES_DEFINITIONS: Array<{
+  name: string;
+  match: (slug: string) => boolean;
+}> = [
+  {
+    name: 'iSurfer: Real-Time GPU Algebraic Surface Ray Tracer (ITBA Thesis Series)',
+    match: (s) => s.startsWith('isurfer-'),
+  },
+  {
+    name: 'Molten AI Agent: Autonomous Business Analyst & Fibonacci Engine (MBA Thesis Series)',
+    match: (s) => s.startsWith('molten-ai-'),
+  },
+  {
+    name: 'SurfZar: Real-Time WebGL2 Algebraic Surfaces, CSG & 3D Printing Series',
+    match: (s) => s.startsWith('surfzar'),
+  },
+  {
+    name: 'ArchitecturaAI: Browser-Native 3D Spatial Studio & NODES Image Tree Series',
+    match: (s) => s.startsWith('architectura-ai-'),
+  },
+  {
+    name: 'Ruby NewsStudio: MuseTalk Real-Time TensorRT & CUDA Avatar Series',
+    match: (s) => s.startsWith('engineering_blog_musetalk_'),
+  },
+  {
+    name: 'Ruby NewsStudio: Ditto Motion-Space TensorRT & Blackwell FP8 Series',
+    match: (s) => s.startsWith('engineering_blog_ditto_') || /^1[6-9]_/.test(s) || /^2[0-1]_/.test(s),
+  },
+  {
+    name: 'Ruby NewsStudio: Kokoro 82M Sub-100ms Neural TTS Series',
+    match: (s) => s.startsWith('engineering_blog_kokoro_'),
+  },
+  {
+    name: 'Ruby NewsStudio: Chatterbox Zero-Shot Voice Cloning & CUDA Graphs Series',
+    match: (s) => s.startsWith('engineering_blog_chatterbox_'),
+  },
+  {
+    name: 'Ruby NewsStudio: Qwen3-TTS Dual-Codebook & TensorRT Series',
+    match: (s) => s.startsWith('engineering_blog_qwen3_'),
+  },
+  {
+    name: 'Ruby NewsStudio: Fish Audio S1-Mini & DAC Vocoder Optimization Series',
+    match: (s) => s.startsWith('engineering_blog_fish_'),
+  },
+];
 
 export function generateStaticParams() {
   const posts = getAllPosts();
@@ -91,10 +174,18 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const prevPost = postIndex > 0 ? posts[postIndex - 1] : null;
   const nextPost = postIndex < posts.length - 1 ? posts[postIndex + 1] : null;
 
+  const activeSeriesDef = SERIES_DEFINITIONS.find((def) => def.match(post.slug));
+  const seriesPosts: BlogPost[] = activeSeriesDef
+    ? [...posts].filter((p) => activeSeriesDef.match(p.slug)).reverse()
+    : [];
+  const currentSeriesPartIndex = seriesPosts.findIndex((p) => p.slug === post.slug);
+
+  const headings = extractHeadings(post.content);
+
   const seriesPrefixes = [
     'isurfer-',
     'molten-ai-',
-    'surfzar-',
+    'surfzar',
     'architectura-ai-',
     'engineering_blog_musetalk_',
     'engineering_blog_ditto_',
@@ -148,6 +239,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <div className="min-h-screen bg-[#070a12] text-slate-100 selection:bg-[#4ea8de]/30 selection:text-[#80ffdb]">
+      <ReadingProgressBar />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -250,9 +342,84 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               </p>
             )}
 
+            {/* Multi-Part Series Banner */}
+            {activeSeriesDef && seriesPosts.length > 1 && (
+              <div className="mt-6 rounded-xl border border-[#4ea8de]/30 bg-slate-900/70 p-4 sm:p-5">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-[#80ffdb]">
+                    <Layers className="h-4 w-4 text-[#4ea8de] shrink-0" />
+                    <span>{activeSeriesDef.name}</span>
+                  </div>
+                  <span className="rounded-full border border-[#4ea8de]/40 bg-[#4ea8de]/15 px-2.5 py-0.5 text-[11px] font-semibold text-white">
+                    Part {currentSeriesPartIndex + 1} of {seriesPosts.length}
+                  </span>
+                </div>
+                <div className="mt-3 grid gap-1.5 sm:grid-cols-2">
+                  {seriesPosts.map((sp, idx) => {
+                    const isCurrent = sp.slug === post.slug;
+                    return (
+                      <Link
+                        key={sp.slug}
+                        href={`/posts/${sp.slug}`}
+                        className={`flex items-center gap-2 rounded-lg px-3 py-2 text-xs transition-colors ${
+                          isCurrent
+                            ? 'border border-[#4ea8de]/50 bg-[#4ea8de]/15 font-bold text-white'
+                            : 'border border-slate-800/80 bg-slate-950/60 text-slate-300 hover:border-slate-700 hover:text-[#80ffdb]'
+                        }`}
+                      >
+                        <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-slate-800 text-[11px] font-mono text-[#64dfdf]">
+                          {idx + 1}
+                        </span>
+                        <span className="line-clamp-1">{sp.title}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Collapsible Table of Contents (if >= 3 headings) */}
+            {headings.length >= 3 && (
+              <details
+                open={headings.length <= 8}
+                className="group mt-6 rounded-xl border border-slate-800/90 bg-slate-900/50 p-4 sm:p-5"
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-200">
+                  <span className="inline-flex items-center gap-2">
+                    <List className="h-4 w-4 text-[#64dfdf]" />
+                    <span>Table of Contents ({headings.length} sections)</span>
+                  </span>
+                  <span className="text-xs font-medium text-slate-400 group-open:rotate-90 transition-transform">
+                    ▸
+                  </span>
+                </summary>
+                <nav className="mt-3 border-t border-slate-800/80 pt-3">
+                  <ul className="space-y-1.5 text-xs sm:text-sm">
+                    {headings.map((h) => (
+                      <li
+                        key={h.id}
+                        className={h.level === 3 ? 'pl-4 text-slate-400' : 'font-medium text-slate-300'}
+                      >
+                        <a
+                          href={`#${h.id}`}
+                          className="inline-flex items-center gap-1.5 hover:text-[#80ffdb] transition-colors"
+                        >
+                          <span className="text-[#4ea8de]/70">•</span>
+                          <span>{h.text}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </details>
+            )}
+
             <div className="mt-8 border-t border-slate-800/80 pt-8">
               <MarkdownRenderer content={post.content} />
             </div>
+
+            {/* Social Share & Copy Canonical URL Bar */}
+            <ArticleShareBar title={post.title} url={canonicalUrl} />
 
             {/* Related / Companion Articles in Series or Topic */}
             {relatedPosts.length > 0 && (

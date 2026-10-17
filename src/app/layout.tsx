@@ -48,6 +48,47 @@ export const metadata: Metadata = {
   },
 };
 
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  url: SITE_URL,
+  mainEntity: {
+    '@type': 'Person',
+    name: 'Daniel Azar',
+    url: SITE_URL,
+    jobTitle: 'Software & AI Systems Engineer',
+    description:
+      '15+ years architecting full-stack cloud platforms, interactive 3D graphics, agentic AI systems, and sub-100ms GPU neural pipelines across high-paced AI startups like Scale AI and enterprise cloud teams.',
+    alumniOf: [
+      {
+        '@type': 'CollegeOrUniversity',
+        name: 'ITBA — Instituto Tecnológico de Buenos Aires',
+      },
+      {
+        '@type': 'EducationalOrganization',
+        name: 'Master in Business Administration (MBA)',
+      },
+    ],
+    knowsAbout: [
+      'Artificial Intelligence',
+      'Autonomous AI Agents',
+      'CUDA Graphs',
+      'TensorRT FP8/FP16',
+      'Triton Kernels',
+      'Computer Graphics',
+      'WebGL2 & WebGPU',
+      'Cloud Architecture',
+      'TypeScript & Next.js',
+    ],
+    sameAs: [
+      'https://github.com/daniazar',
+      'https://ar.linkedin.com/in/daniazar/',
+      'https://twitter.com/azardani',
+      'https://www.instagram.com/daniazar.sh/',
+    ],
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -55,7 +96,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

@@ -4,10 +4,17 @@ export interface ProjectLink {
   icon: 'code' | 'globe' | 'video' | 'play' | 'download';
 }
 
+export type ProjectCategory =
+  | 'AI & GPU Systems'
+  | '3D & Graphics'
+  | 'Cloud & Full-Stack'
+  | 'Games & Open-Source';
+
 export interface ProjectItem {
   id: string;
   title: string;
   year: string;
+  category: ProjectCategory;
   tech: string[];
   description: string;
   note?: string;
@@ -16,6 +23,49 @@ export interface ProjectItem {
   accent: 'cyan' | 'purple' | 'amber' | 'indigo';
   links: ProjectLink[];
 }
+
+export const FEATURED_SERIES = [
+  {
+    id: 'blackwell-gpu',
+    title: 'Blackwell GPU Inference & Real-Time Video AI',
+    badge: '36-Part Series',
+    description:
+      'TensorRT 10.15 FP8/FP16, CUDA Graphs, fused Triton NV12 kernels, 90+ FPS talking-head avatars (Ditto & MuseTalk), and sub-100ms neural TTS.',
+    filterTag: 'CUDA & TensorRT',
+    leadPostUrl: '/posts/20_fused_warping_streaming_overlap_and_nvenc',
+    accent: 'cyan' as const,
+  },
+  {
+    id: 'algebraic-surfaces',
+    title: 'Algebraic Surfaces & GPU Ray Tracing: iSurfer → SurfZar',
+    badge: '6-Part Series',
+    description:
+      'From an on-device GLSL AST compiler on iPhone (OpenGL ES 2.0) to a modern WebGL2 3D surface studio with closed-form root solvers, CSG, and STL 3D printing.',
+    filterTag: 'Computer Graphics',
+    leadPostUrl: '/posts/isurfer-part-1-why-raytracing-beats-triangle-meshes-for-algebraic-surfaces',
+    accent: 'purple' as const,
+  },
+  {
+    id: 'agentic-ai',
+    title: 'Agentic AI Systems: CineZero, Molten AI & Jules',
+    badge: 'MBA Thesis & Agents',
+    description:
+      'Multi-stage Business Analyst agents with recursive Fibonacci decomposition, autonomous Veo 3.1 filmmaking pipelines, MCP servers, and cloud IDE delegation.',
+    filterTag: 'AI & Agents',
+    leadPostUrl: '/posts/molten-ai-agent-master-thesis',
+    accent: 'amber' as const,
+  },
+  {
+    id: 'spatial-web',
+    title: 'Spatial Studios, PropTech & Cloud Compilers',
+    badge: 'Architecture Deep-Dives',
+    description:
+      'ReactFlow non-destructive image variation DAGs, 100% client-side PDF/IndexedDB engines, GF(2⁸) Reed-Solomon QR encoders, and Go enterprise firewall compilers.',
+    filterTag: 'TypeScript & Web',
+    leadPostUrl: '/posts/architectura-ai-image-tree-dag-versioning',
+    accent: 'indigo' as const,
+  },
+];
 
 export const PROFILE = {
   name: 'Daniel Azar',
@@ -48,7 +98,37 @@ export const PROFILE = {
       institution: 'ITBA — Instituto Tecnológico de Buenos Aires',
       year: '2013',
       thesis: 'Thesis: iSurfer — Real-Time GPU Algebraic Surface Ray Tracer in OpenGL ES 2.0',
-      thesisUrl: '/posts/isurfer-gpu-algebraic-surface-raytracer',
+      thesisUrl: '/posts/isurfer-gpu-raytracing-algebraic-surfaces-ios',
+    },
+  ],
+  timeline: [
+    {
+      period: '2025 – 2026',
+      role: 'AI Systems, GPU Inference & Spatial Studio Architecture',
+      org: 'Ruby NewsStudio • CineZero • SurfZar • ArchitecturaAI • MBA Thesis',
+      description:
+        'Architected sub-100ms Blackwell FP8/FP16 TensorRT & CUDA Graph pipelines (90+ FPS talking-head avatars and neural TTS), autonomous multi-agent AI filmmaking & agile backlog engines (Molten AI Agent MBA Thesis), and browser-native WebGL2/Three.js studios.',
+    },
+    {
+      period: 'Startup & Leadership',
+      role: 'Senior / Principal Software Engineer, Tech Lead & Co-Founder',
+      org: 'Scale AI • MoltenMinds • Distributed Cloud Teams',
+      description:
+        'Engineered AI & full-stack systems at high-paced startups like Scale AI, led distributed engineering teams as Technical Lead, and co-founded MoltenMinds to deliver cloud architecture (Azure/AWS/GCP), SecDevOps, and AI systems consulting.',
+    },
+    {
+      period: '2014 – 2023',
+      role: 'Cloud, Cybersecurity Compilers & Full-Stack Platforms',
+      org: 'Enterprise Security • IoT Computer Vision • Open-Source TypeScript',
+      description:
+        'Built automated Cisco ASA to Check Point VSX firewall migration compilers in Go, Raspberry Pi real-time facial recognition security cameras (CloudCam), headless Chrome automation (WebScreen), and cross-platform web/desktop suites.',
+    },
+    {
+      period: '2010 – 2013',
+      role: 'Software Engineering (ITBA) & Early GPU Graphics',
+      org: 'iSurfer GPU Ray Tracer • Unity 3D • C Cryptography',
+      description:
+        'Completed Software Engineering at ITBA with an honors thesis on per-pixel GPU ray tracing of algebraic surfaces on iOS (iSurfer), alongside procedural Unity 3D games (10,000+ players on Kongregate) and AES/DES WAV audio steganography in C.',
     },
   ],
   languages: [
@@ -130,6 +210,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'ruby-newsstudio',
     title: 'Ruby NewsStudio — Real-Time AI Broadcast Engine',
     year: '2026',
+    category: 'AI & GPU Systems',
     tech: ['TensorRT 10.15', 'CUDA Graphs', 'Triton NV12', 'PyTorch', 'WebRTC', 'WebGPU', 'Next.js 15'],
     description:
       'An autonomous AI broadcast studio and full-duplex conversational video anchor engine. Combines Blackwell FP8/FP16 TensorRT talking-head pipelines (Ditto & MuseTalk at 50–90+ FPS), RIFE optical-flow frame doubling, fused Triton NV12 splicing, and sub-100ms multi-engine neural TTS.',
@@ -147,6 +228,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'surfzar',
     title: 'SurfZar — Real-Time 3D Algebraic Surface Studio',
     year: '2026',
+    category: '3D & Graphics',
     tech: ['WebGL2 / GLSL', 'Three.js / R3F', 'Next.js 16', 'React 19', 'TypeScript', 'Marching Cubes STL'],
     description:
       'The modern browser evolution of my iSurfer thesis: a zero-install 3D mathematical studio that renders implicit algebraic and transcendental surfaces f(x,y,z)=0 at 60 FPS using closed-form Cardano/Ferrari root solvers, interval raymarching, dual-sided PBR shading, keyframe timelines, and watertight 3D print STL export.',
@@ -184,6 +266,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'cinezero',
     title: 'CineZero — Autonomous AI Filmmaking Studio',
     year: '2026',
+    category: 'AI & GPU Systems',
     tech: ['Next.js', 'TypeScript', 'Veo 3.1', 'Google Flow', 'FFmpeg', 'Gemini API'],
     description:
       'An assistant-driven AI filmmaking studio that takes an idea through Story, World, Script, Produce, and Cut. Features multi-angle character reference sheets, sharpest-frame seam chaining across 8-second Veo clips, mandatory cost ceilings, and content-addressed segment reuse.',
@@ -206,6 +289,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'google-flow-mcp',
     title: 'Google Flow MCP — 36-Tool Veo 3.1 & Imagen 4 Server',
     year: '2026',
+    category: 'AI & GPU Systems',
     tech: ['TypeScript', 'Model Context Protocol', 'tRPC', 'Playwright', 'FFmpeg', 'Vitest'],
     description:
       'A two-tier Model Context Protocol (MCP) server for Google Labs Flow that pairs direct authenticated HTTP/tRPC API execution with persistent Playwright fallback, media-ID frame verification, and a local credit spend ledger.',
@@ -228,6 +312,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'antigravity-jules-plugin',
     title: 'Antigravity Jules Plugin — Cloud Agent Delegation',
     year: '2026',
+    category: 'AI & GPU Systems',
     tech: ['Google Antigravity', 'Google Jules CLI', 'AI Agents', 'Git Automation'],
     description:
       'An open-source plugin for Google Antigravity IDE that delegates parallel coding tasks, bug fixes, and test suites to asynchronous Google Jules cloud VMs with non-destructive diff inspection and dirty-worktree guards.',
@@ -250,6 +335,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'propertyspain',
     title: 'VallecasCasa (PropertySpain) — 30-Year Rent-to-Own PropTech',
     year: '2026',
+    category: 'Cloud & Full-Stack',
     tech: ['Next.js 14', 'TypeScript', 'Supabase RLS', 'next-intl', 'Framer Motion', 'Tailwind CSS'],
     description:
       'A bilingual Madrid Rent-to-Own (Alquiler con Opción a Compra) real estate platform featuring an interactive 30-year equity simulator, notarial clause inspector, progressive 2-step viability funnel, and admin CRM.',
@@ -272,6 +358,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'architectura-ai',
     title: 'ArchitecturaAI — Virtual Staging & Renovation Studio',
     year: '2026',
+    category: '3D & Graphics',
     tech: ['Next.js 16', 'React 19', 'Gemini 2.5 Flash', 'Three.js / R3F', 'ReactFlow', 'Supabase', 'Stripe'],
     description:
       'An AI virtual staging and architectural renovation studio with structural geometry locks, non-destructive ReactFlow variation DAGs, 3D floor-plan viewers, and Stripe credit billing.',
@@ -299,6 +386,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'pdfmaster',
     title: 'PdfMaster — Zero-Upload Client-Side PDF Editor',
     year: '2026',
+    category: 'Cloud & Full-Stack',
     tech: ['Next.js 15', 'TypeScript', 'pdf.js', 'pdf-lib', 'Zustand', 'Tailwind CSS'],
     description:
       'A privacy-first cross-platform PDF editor that executes page reordering, rotation, merging, vector annotations, and full-text Ctrl+F search 100% client-side in the browser without uploading files.',
@@ -321,6 +409,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'contract-app',
     title: 'ContractApp — AI Legal Contract Wizard & Clause Engine',
     year: '2025',
+    category: 'AI & GPU Systems',
     tech: ['Next.js', 'TypeScript', 'Google Genkit AI', 'Material UI', 'Playwright'],
     description:
       'A modular legal contract lifecycle suite combining an AI-assisted questionnaire, drag-and-drop clause library, real-time document preview, and digital signature stamping.',
@@ -343,6 +432,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'molten-ai-agent',
     title: 'Molten AI Agent — Autonomous Business Analyst & Agile Backlog Engine',
     year: '2025',
+    category: 'AI & GPU Systems',
     tech: ['Next.js 14', 'TypeScript', 'Vercel AI SDK', 'OpenAI', 'Zod Schemas', 'Supabase RLS', 'Tailwind CSS'],
     description:
       "My MBA Master's Thesis project: a 7-stage agentic AI platform that transforms raw product ideas into structured Business Analyst specifications, generates role-based tasks with Fibonacci story points, recursively decomposes complex tasks (≥8 pts) into Epics and sub-tasks, and manages execution on a persistent Kanban board.",
@@ -370,6 +460,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'discord-schedule-bot',
     title: 'Discord Schedule Bot & Realtime UTC Dashboard',
     year: '2025',
+    category: 'Cloud & Full-Stack',
     tech: ['Discord.js v14', 'Next.js', 'Supabase Realtime', 'TypeScript', 'WebSockets'],
     description:
       'A dual-interface community event scheduler pairing Discord slash commands (/add, /title) with a live WebSocket-synchronized Next.js dashboard normalized to UTC hours.',
@@ -392,6 +483,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'property-manager',
     title: 'Property Manager — Offline-First Rental Portfolio Suite',
     year: '2025',
+    category: 'Cloud & Full-Stack',
     tech: ['Next.js', 'TypeScript', 'IndexedDB', 'Recharts', 'Radix UI', 'Google Drive API'],
     description:
       'A local-first real estate portfolio manager powered by a 10-store IndexedDB engine (propManagerDB) that tracks rental properties, multi-step lease escalations, tenant payments, automated tax projections, and encrypted Google Drive backups.',
@@ -414,6 +506,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'aoe2-de-ui-mod',
     title: 'Age of Empires II: DE — 4K UltraWide HUD Mod',
     year: '2020',
+    category: 'Games & Open-Source',
     tech: ['Age of Empires II: DE', 'JSON WidgetUI', 'DDS Textures', '4K UltraWide UX'],
     description:
       'A custom competitive 4K UltraWide UI mod (#16939 on the official Age of Empires Mod Workshop) that clusters the minimap, resource bar, unit queues, and command panel into the lower-left focal zone with transparent overlays.',
@@ -441,6 +534,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'lsystemts-turtle-ts',
     title: 'LSystemTS & Turtle-TS — Generative Fractal Engine',
     year: '2020',
+    category: '3D & Graphics',
     tech: ['TypeScript', 'HTML5 Canvas', 'L-Systems', 'Fractals', 'npm Package'],
     description:
       'A pair of open-source TypeScript libraries: a 2D vector Turtle Graphics engine (turtle-ts) and a recursive Lindenmayer System grammar evaluator (lsystemts) for rendering Sierpinski Triangles, Koch Snowflakes, and Hilbert space-filling curves.',
@@ -468,6 +562,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'image-metadata-editor',
     title: 'Image Metadata Editor',
     year: '2020',
+    category: 'Games & Open-Source',
     tech: ['C#', 'WinUI 3 Alpha', 'Bing Maps API', 'Windows 10'],
     description:
       'A desktop application to batch-edit EXIF image metadata (dates and geolocation coordinates). Built during the COVID-19 quarantine to digitize and organize thousands of scanned family photo albums.',
@@ -490,6 +585,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'tv-master',
     title: 'TV Master',
     year: '2018',
+    category: 'Cloud & Full-Stack',
     tech: ['TypeScript', 'Angular', 'Firebase', 'Electron', 'Cordova'],
     description:
       'A responsive web and desktop application to watch Latin American television channels online for free with an ad-free, theater-mode interface, multi-source switching, and live event schedules.',
@@ -518,6 +614,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'cloudcam',
     title: 'CloudCam',
     year: '2015',
+    category: 'AI & GPU Systems',
     tech: ['JavaScript', 'AngularJS', 'PostgreSQL', 'Kairos', 'Raspberry Pi'],
     description:
       'A smart security camera platform with real-time face recognition. Supports standard webcams, most IP cameras, and a custom Raspberry Pi hardware camera prototype.',
@@ -540,6 +637,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'isurfer',
     title: 'iSurfer — Real-Time GPU Algebraic Surface Ray Tracer',
     year: '2013',
+    category: '3D & Graphics',
     tech: ['OpenGL ES 2.0', 'GLSL Shaders', 'Objective-C', 'AST Compiler', 'Ray Tracing'],
     description:
       'My university thesis project at ITBA: a real-time algebraic surfaces renderer for iPhone and iPad. Compiles user equations f(x,y,z)=0 on the fly via a recursive-descent AST parser into dynamically linked OpenGL ES 2.0 fragment shaders for per-pixel GPU ray tracing.',
@@ -572,6 +670,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'dream-list',
     title: 'Dream List',
     year: '2012',
+    category: 'Games & Open-Source',
     tech: ['C#', 'JavaScript', 'Cordova', 'BlackBerry World'],
     description:
       'A mobile dream journal and tracking application designed and published for the BlackBerry World Store.',
@@ -589,6 +688,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'crypto-audio-steganography',
     title: 'Crypto Audio Steganography',
     year: '2011',
+    category: 'Games & Open-Source',
     tech: ['C', 'AES / DES / SHA', 'WAV Audio'],
     description:
       'A low-level cryptography and steganography tool in C to encrypt information using AES, DES, and SHA and conceal the payload inside uncompressed WAV audio files.',
@@ -612,6 +712,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'asteroids-deluxe',
     title: 'Asteroids Deluxe',
     year: '2010',
+    category: 'Games & Open-Source',
     tech: ['C#', 'Unity 3D', 'Game Dev'],
     description:
       'An Asteroids game built for a university course featuring two playable camera modes: 2D Classic and 2.5D third-person chase camera behind the spacecraft.',
@@ -639,6 +740,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'city-racing',
     title: 'City Racing',
     year: '2010',
+    category: 'Games & Open-Source',
     tech: ['C#', 'Unity 3D', 'Procedural Generation', 'AI'],
     description:
       'A procedurally generated racing game with infinite city courses, dynamic road generation, and AI opponents. Published on Kongregate where over 10,000 players raced it.',
