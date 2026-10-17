@@ -1,0 +1,42 @@
+{
+  "50": {
+    "timesteps": 50,
+    "duration_ms": 3220.36,
+    "effective_fps": 51.2,
+    "mse_vs_teacher": 0.0,
+    "cosine_sim_vs_teacher": 1.0,
+    "jitter_metric": 0.02782
+  },
+  "25": {
+    "timesteps": 25,
+    "duration_ms": 1407.22,
+    "effective_fps": 117.3,
+    "mse_vs_teacher": 0.000114,
+    "cosine_sim_vs_teacher": 0.99818,
+    "jitter_metric": 0.02809
+  },
+  "10": {
+    "timesteps": 10,
+    "duration_ms": 621.0,
+    "effective_fps": 265.7,
+    "mse_vs_teacher": 9.1e-05,
+    "cosine_sim_vs_teacher": 0.99854,
+    "jitter_metric": 0.03059
+  },
+  "4": {
+    "timesteps": 4,
+    "duration_ms": 229.54,
+    "effective_fps": 718.8,
+    "mse_vs_teacher": 0.000273,
+    "cosine_sim_vs_teacher": 0.99562,
+    "jitter_metric": 0.03304
+  },
+  "2": {
+    "timesteps": 2,
+    "duration_ms": 108.64,
+    "effective_fps": 1518.7,
+    "mse_vs_teacher": 0.00059,
+    "cosine_sim_vs_teacher": 0.99113,
+    "jitter_metric": 0.03598
+  }
+}
