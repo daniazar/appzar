@@ -1,0 +1,81 @@
+{
+  "benchmark_date": "2026-09-18 00:19:27",
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU",
+    "sm_version": "sm_120",
+    "vram_gb": 23.89,
+    "tensorrt_version": "10.15",
+    "cuda_version": "12.8"
+  },
+  "zero_copy_neural": {
+    "dense_motion": {
+      "legacy_latency_ms": 49.107,
+      "native_latency_ms": 46.29,
+      "speedup_factor": 1.061,
+      "cos_sim_mask": 0.999996,
+      "cos_sim_occ": 0.999998,
+      "legacy_copy_mb_per_batch": 330.0,
+      "native_copy_mb_per_batch": 0.0
+    },
+    "decoder": {
+      "legacy_latency_ms": 43.729,
+      "native_latency_ms": 79.584,
+      "speedup_factor": 0.549,
+      "cos_sim": 0.999628,
+      "mae": 0.002348,
+      "legacy_copy_mb_per_batch": 84.0,
+      "native_copy_mb_per_batch": 0.0
+    },
+    "memory_traffic": {
+      "num_batches_6_6s": 21,
+      "legacy_total_mb_cast_and_copied": 8694.0,
+      "legacy_total_gb_cast_and_copied": 8.49,
+      "native_total_mb_cast_and_copied": 0.0,
+      "bandwidth_saved_gb": 8.49
+    }
+  },
+  "landmark_caching": {
+    "num_frames": 165,
+    "cold_stitching_latency_ms": 239.04,
+    "avatar_kps_cached_ms": 0.0016,
+    "audio_motion_cache_hit_ms": 0.005,
+    "cache_speedup": 47808.9
+  },
+  "architectural_progression": {
+    "audio_duration_s": 6.58,
+    "total_frames": 164,
+    "p17_hybrid": {
+      "label": "Part 17: Hybrid Diffusion + HuBERT TRT",
+      "hubert_ms": 19.5,
+      "diffusion_ms": 94.2,
+      "stitching_ms": 58.1,
+      "neural_forward_ms": 1980.0,
+      "nvenc_and_io_ms": 420.0,
+      "total_latency_s": 2.57,
+      "effective_fps": 64.2,
+      "peak_vram_gb": 4.12
+    },
+    "p18_full_trt_cast": {
+      "label": "Part 18: Full TRT 10.15 (Cast Overhead)",
+      "hubert_ms": 19.5,
+      "diffusion_ms": 19.8,
+      "stitching_ms": 54.0,
+      "neural_forward_ms": 1780.0,
+      "nvenc_and_io_ms": 410.0,
+      "total_latency_s": 2.32,
+      "effective_fps": 71.1,
+      "peak_vram_gb": 3.98
+    },
+    "p19_native_zero_copy": {
+      "label": "Part 19: Native Zero-Copy (Pure Dense 25FPS)",
+      "hubert_ms": 19.5,
+      "diffusion_ms": 19.8,
+      "stitching_ms": 0.01,
+      "neural_forward_ms": 2450.0,
+      "nvenc_and_io_ms": 650.0,
+      "total_latency_s": 3.04,
+      "effective_fps": 54.3,
+      "peak_vram_gb": 3.82
+    }
+  }
+}

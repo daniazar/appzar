@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-09-21T06:33:13Z",
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU (sm_120)",
+  "triton_benchmark": {
+    "pytorch_latency_ms": 0.478,
+    "triton_latency_ms": 0.11,
+    "speedup_factor": 4.36,
+    "max_delta": 1.0,
+    "mean_delta": 1e-06
+  },
+  "rife_benchmark": {
+    "rife_latency_ms": 4.73,
+    "rife_throughput_fps": 211.3,
+    "broadcast_fps": 50.0,
+    "headroom_pct": 76.3
+  },
+  "cuda_graph_benchmark": {
+    "eager_composite_ms": 0.257,
+    "graph_composite_ms": 0.24,
+    "per_frame_composite_ms": 0.06
+  },
+  "webrtc_benchmark": {
+    "mode": "Full-Duplex Zero-Disk Interactive Streaming",
+    "sdp_negotiation_latency_ms": 69.52,
+    "target_glass_to_glass_ms": 28.5,
+    "audio_chunk_cadence_ms": 200.0,
+    "video_stream_fps": 25.0,
+    "rife_broadcast_fps": 50.0,
+    "disk_io_bytes": 0
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU (24GB GDDR7)",
+    "architecture": "Blackwell (sm_120)",
+    "cuda_version": "12.8",
+    "tensorrt_version": "10.15"
+  },
+  "ditto": {
+    "avatar_cold_load_before_ms": 6890.0,
+    "avatar_cold_load_after_ms": 28.1,
+    "avatar_load_speedup": "245.2x",
+    "avatar_vram_overhead_mb": 0.5,
+    "motion_diffusion_fps": 522.3,
+    "motion_diffusion_time_sec": 0.32,
+    "inner_render_fps_dense_fp8": 55.9,
+    "inner_render_fps_dense_peak": 67.2,
+    "inner_render_fps_slerp_stride2": 98.0,
+    "total_turnaround_time_sec": 3.39,
+    "streaming_ttff_ms": 575.1,
+    "overall_pipeline_fps": 48.6
+  },
+  "musetalk": {
+    "avatar_cold_load_before_ms": 2500.0,
+    "avatar_cold_load_after_ms": 5.14,
+    "avatar_load_speedup": "486.4x",
+    "unet_trt_engine": "unet_b32_fp16.engine / unet_b32_fp8.engine",
+    "taesd_trt_engine": "taesd_b32_fp16.engine (2,100+ FPS)",
+    "streaming_ttff_ms": 278.6,
+    "streaming_turnaround_sec": 0.72,
+    "streaming_throughput_fps": 125.8,
+    "batch_inference_duration_3s_clip_sec": 1.5,
+    "batch_inference_fps": 59.9
+  }
+}

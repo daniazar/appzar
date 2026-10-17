@@ -1,0 +1,90 @@
+{
+  "pillar1_hubert": {
+    "audio_duration_s": 6.58,
+    "n_chunks": 31,
+    "cpu_onnx_ms": 2464.66,
+    "cuda_onnx_ms": 491.41,
+    "trt_chunked_ms": 261.25,
+    "trt_full_ms": 19.53,
+    "speedup_trt_chunked_vs_cpu": 9.43,
+    "speedup_trt_full_vs_cpu": 126.19,
+    "speedup_cuda_vs_cpu": 5.02
+  },
+  "pillar2_streaming_ttff": {
+    "offline_stages_ms": {
+      "Audio Extraction (Full 6.6s)": 170.0,
+      "Full LMDM Diffusion (165f)": 420.0,
+      "Vectorized Landmark Stitching": 40.0,
+      "Batch 1 TRT Decode (B=8)": 65.0,
+      "Initial Encode & Flush": 15.0
+    },
+    "offline_ttff_ms": 710.0,
+    "streaming_stages_ms": {
+      "Audio Chunk Forward (20f)": 3.5,
+      "Sliding LMDM Window (24f)": 24.0,
+      "Stitch First Batch (8f)": 2.0,
+      "Batch 1 TRT Decode (B=8)": 48.0,
+      "Zero-Copy Pinned NVENC": 3.5
+    },
+    "streaming_ttff_ms": 81.0,
+    "ttff_speedup": 8.77,
+    "ttff_reduction_percent": 88.6
+  },
+  "pillar3_pinned_nvenc": {
+    "unpinned_host_transfer_ms_per_batch": 5.64,
+    "pinned_dma_transfer_ms_per_batch": 0.99,
+    "dma_speedup": 5.67,
+    "effective_pcie_bandwidth_gbs": 23.3,
+    "nvenc_codec": "h264_nvenc (NV12 Direct)"
+  },
+  "pillar4_adaptive_cadence": {
+    "stride_distribution": {
+      "s1_percent": 80.0,
+      "s2_percent": 3.6,
+      "s3_percent": 16.4,
+      "mean_stride": 1.36
+    },
+    "canvas_metrics": {
+      "s2_mean_psnr_db": 41.44,
+      "s2_mean_ssim": 0.9836,
+      "adaptive_mean_psnr_db": 44.88,
+      "adaptive_mean_ssim": 0.9954
+    },
+    "mouth_roi_metrics": {
+      "s2_mean_psnr_db": 32.87,
+      "s2_mean_ssim": 0.8568,
+      "adaptive_mean_psnr_db": 35.81,
+      "adaptive_mean_ssim": 0.9498
+    },
+    "plosive_burst_metrics": {
+      "plosive_frames_count": 141,
+      "s2_mouth_psnr_db": 31.75,
+      "s2_mouth_ssim": 0.8505,
+      "adaptive_mouth_psnr_db": 34.68,
+      "adaptive_mouth_ssim": 0.9457
+    },
+    "render_throughput": {
+      "vram_resident_full_acceleration": {
+        "stride1_dense_fps": 65.6,
+        "stride1_peak_fps": 71.9,
+        "stride2_balanced_fps": 102.6,
+        "stride2_peak_fps": 119.6,
+        "adaptive_cadence_fps": 67.5,
+        "adaptive_peak_fps": 75.2,
+        "render_time_s": {
+          "stride1_s": 2.51,
+          "stride2_s": 1.61,
+          "adaptive_s": 2.44
+        }
+      },
+      "streamed_pinned_dma_low_vram": {
+        "stride1_dense_fps": 34.2,
+        "stride2_balanced_fps": 40.2,
+        "adaptive_cadence_fps": 31.6
+      },
+      "stride1_dense_fps": 65.6,
+      "stride2_balanced_fps": 102.6,
+      "adaptive_cadence_fps": 67.5
+    }
+  }
+}
