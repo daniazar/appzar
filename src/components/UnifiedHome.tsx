@@ -830,6 +830,27 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
                 );
               })}
 
+              {/* Honors & Awards Card */}
+              <div className="rounded-2xl border border-slate-800/90 bg-slate-900/60 p-5">
+                <div className="flex items-center gap-2 text-sm font-bold text-white">
+                  <Award className="h-4 w-4 text-amber-400" />
+                  <span>Honors &amp; Awards</span>
+                </div>
+                <div className="mt-3.5 space-y-3 divide-y divide-slate-800/80">
+                  {PROFILE.awards.map((award, idx) => (
+                    <div key={award.title} className={idx > 0 ? 'pt-3' : ''}>
+                      <div className="flex items-center justify-between gap-2">
+                        <h4 className="text-xs sm:text-sm font-bold text-white">{award.title}</h4>
+                        <span className="shrink-0 rounded-full border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold text-amber-300">
+                          {award.year}
+                        </span>
+                      </div>
+                      <p className="mt-1 text-xs text-slate-400 leading-relaxed">{award.detail}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               {/* Direct Consulting / Collaboration Card */}
               <div className="rounded-2xl border border-[#5e60ce]/40 bg-gradient-to-br from-[#5e60ce]/15 via-slate-900/90 to-[#4ea8de]/10 p-6">
                 <h3 className="text-base font-bold text-white">

@@ -56,28 +56,35 @@ const personJsonLd = {
     '@type': 'Person',
     name: 'Daniel Azar',
     url: SITE_URL,
-    jobTitle: 'Software & AI Systems Engineer',
+    jobTitle: 'Software AI Engineer',
+    worksFor: {
+      '@type': 'Organization',
+      name: 'MoltenMinds',
+      url: 'https://www.moltenminds.com',
+    },
     description:
-      '15+ years architecting full-stack cloud platforms, interactive 3D graphics, agentic AI systems, and sub-100ms GPU neural pipelines across high-paced AI startups like Scale AI and enterprise cloud teams.',
+      'Software AI Engineer with 15+ years building multimodal AI pipelines, 3D sensor calibration & computer graphics engines, and cloud-scale distributed systems at Scale AI, Microsoft Azure (via SOUTHWORKS), MoltenMinds, and Globant.',
     alumniOf: [
+      {
+        '@type': 'CollegeOrUniversity',
+        name: 'Universidad de Palermo (MBA)',
+      },
       {
         '@type': 'CollegeOrUniversity',
         name: 'ITBA — Instituto Tecnológico de Buenos Aires',
       },
       {
         '@type': 'EducationalOrganization',
-        name: 'Master in Business Administration (MBA)',
+        name: 'Escuela Técnica ORT',
       },
     ],
     knowsAbout: [
       'Artificial Intelligence',
-      'Autonomous AI Agents',
-      'CUDA Graphs',
-      'TensorRT FP8/FP16',
-      'Triton Kernels',
-      'Computer Graphics',
+      'Multimodal & Generative AI',
+      '3D Sensor Fusion & Computer Graphics',
+      'CUDA Graphs & TensorRT',
       'WebGL2 & WebGPU',
-      'Cloud Architecture',
+      'Microsoft Azure & Cloud Architecture',
       'TypeScript & Next.js',
     ],
     sameAs: [
