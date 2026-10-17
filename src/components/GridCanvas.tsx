@@ -179,9 +179,11 @@ export default function GridCanvas() {
       spawnLineAt(x, y);
     };
 
+    let isVisible = true;
+
     // Ambient pulse timer so the grid is alive even without mouse movement
     const ambientInterval = window.setInterval(() => {
-      if (document.hidden || !canvas.width || !canvas.height) return;
+      if (document.hidden || !isVisible || !canvas.width || !canvas.height) return;
       const squareLength = getSquareLength();
       const cols = Math.floor(canvas.width / squareLength);
       const rows = Math.floor(canvas.height / squareLength);
@@ -193,6 +195,10 @@ export default function GridCanvas() {
     }, 450);
 
     const draw = () => {
+      if (!isVisible || document.hidden) {
+        animFrameId = 0;
+        return;
+      }
       updateCanvasSize();
       const squareLength = getSquareLength();
       const numColumns = Math.ceil(canvas.width / squareLength);
@@ -250,13 +256,27 @@ export default function GridCanvas() {
       animFrameId = window.requestAnimationFrame(draw);
     };
 
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry) return;
+        isVisible = entry.isIntersecting;
+        if (isVisible && !animFrameId) {
+          animFrameId = window.requestAnimationFrame(draw);
+        }
+      },
+      { threshold: 0.01 }
+    );
+    observer.observe(canvas);
+
     window.addEventListener('mousemove', onMouseMove, { passive: true });
     animFrameId = window.requestAnimationFrame(draw);
 
     return () => {
+      observer.disconnect();
       window.removeEventListener('mousemove', onMouseMove);
       window.clearInterval(ambientInterval);
-      window.cancelAnimationFrame(animFrameId);
+      if (animFrameId) window.cancelAnimationFrame(animFrameId);
     };
   }, []);
 

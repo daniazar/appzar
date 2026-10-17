@@ -1,5 +1,4 @@
-# www.robotstxt.org/
-
-# Allow crawling of all content
 User-agent: *
-Disallow:
+Allow: /
+
+Sitemap: https://www.appzar.com.ar/sitemap.xml

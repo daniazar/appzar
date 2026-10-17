@@ -14,6 +14,8 @@ import {
 import { getAllPosts, getPostBySlug } from '@/lib/posts';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.appzar.com.ar';
+
 export function generateStaticParams() {
   const posts = getAllPosts();
   return posts.map((post) => ({
@@ -25,11 +27,45 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) {
-    return { title: 'Post Not Found — Daniel Azar' };
+    return { title: 'Post Not Found' };
   }
+  const canonicalUrl = `${SITE_URL}/posts/${post.slug}/`;
+  const ogImage = post.contentImg || post.thumbImg || '/images/thumbs/project_ruby_newsstudio.webp';
+  const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}`;
+
   return {
-    title: `${post.title} — Daniel Azar`,
+    title: post.title,
     description: post.excerpt,
+    authors: [{ name: 'Daniel Azar', url: SITE_URL }],
+    keywords: post.tags,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      type: 'article',
+      url: canonicalUrl,
+      title: post.title,
+      description: post.excerpt,
+      siteName: 'Daniel Azar — AppZar Engineering Blog',
+      publishedTime: `${post.date}T00:00:00.000Z`,
+      authors: ['Daniel Azar'],
+      tags: post.tags,
+      images: [
+        {
+          url: absoluteOgImage,
+          width: 1280,
+          height: 720,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      creator: '@azardani',
+      title: post.title,
+      description: post.excerpt,
+      images: [absoluteOgImage],
+    },
   };
 }
 
@@ -55,8 +91,40 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const prevPost = postIndex > 0 ? posts[postIndex - 1] : null;
   const nextPost = postIndex < posts.length - 1 ? posts[postIndex + 1] : null;
 
+  const canonicalUrl = `${SITE_URL}/posts/${post.slug}/`;
+  const heroImage = post.contentImg || post.thumbImg;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: `${post.date}T00:00:00.000Z`,
+    dateModified: `${post.date}T00:00:00.000Z`,
+    url: canonicalUrl,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': canonicalUrl,
+    },
+    author: {
+      '@type': 'Person',
+      name: 'Daniel Azar',
+      url: SITE_URL,
+    },
+    publisher: {
+      '@type': 'Person',
+      name: 'Daniel Azar',
+      url: SITE_URL,
+    },
+    image: heroImage ? [`${SITE_URL}${heroImage}`] : undefined,
+    keywords: post.tags.join(', '),
+  };
+
   return (
     <div className="min-h-screen bg-[#070a12] text-slate-100 selection:bg-[#4ea8de]/30 selection:text-[#80ffdb]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Full Site Sticky Navbar */}
       <header className="sticky top-0 z-40 border-b border-slate-800/80 bg-[#070a12]/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
@@ -70,7 +138,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </Link>
             <Link href="/" className="hidden sm:flex items-center gap-2.5 pl-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/Logo.png" alt="AppZar" className="h-7 w-auto" />
+              <img
+                src="/assets/Logo.webp"
+                alt="AppZar"
+                width={28}
+                height={28}
+                decoding="async"
+                className="h-7 w-auto"
+              />
               <span className="text-sm font-bold text-white">Daniel Azar</span>
             </Link>
           </div>
@@ -109,6 +184,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <img
                 src={post.contentImg}
                 alt={post.title}
+                decoding="async"
+                fetchPriority="high"
                 className="max-h-[420px] w-full object-cover"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0b0f1c] via-transparent to-transparent opacity-80" />

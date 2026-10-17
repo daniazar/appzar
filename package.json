@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/generate-syndication.mjs && next build",
     "start": "next start",
     "lint": "tsc --noEmit",
     "optimize-images": "node scripts/optimize-images.mjs",
-    "deploy": "next build && npx gh-pages -d out --cname www.appzar.com.ar --dotfiles"
+    "syndicate": "node scripts/generate-syndication.mjs",
+    "deploy": "npm run build && npx gh-pages -d out --cname www.appzar.com.ar --dotfiles"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

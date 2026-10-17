@@ -25,11 +25,11 @@ import {
 } from 'lucide-react';
 import GridCanvas from './GridCanvas';
 import ParticlePortrait from './ParticlePortrait';
-import type { BlogPost } from '@/lib/posts';
+import type { BlogPostSummary } from '@/lib/posts';
 import { PROFILE, PROJECTS, type ProjectItem } from '@/lib/data';
 
 interface UnifiedHomeProps {
-  posts: BlogPost[];
+  posts: BlogPostSummary[];
 }
 
 function formatDate(dateStr: string): string {
@@ -129,9 +129,23 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
   const [showAllPosts, setShowAllPosts] = useState(false);
 
   const allTags = useMemo(() => {
-    const set = new Set<string>();
-    posts.forEach((p) => p.tags.forEach((t) => set.add(t)));
-    return ['All', ...Array.from(set)];
+    const canonicalOrder = [
+      'AI & Agents',
+      'CUDA & TensorRT',
+      'Talking Head & Video AI',
+      'Voice & TTS',
+      'Computer Graphics',
+      'TypeScript & Web',
+      'Cloud & Security',
+      'Systems & Desktop',
+    ];
+    const present = new Set<string>();
+    posts.forEach((p) => p.tags.forEach((t) => present.add(t)));
+    const ordered = canonicalOrder.filter((t) => present.has(t));
+    present.forEach((t) => {
+      if (!ordered.includes(t)) ordered.push(t);
+    });
+    return ['All', ...ordered];
   }, [posts]);
 
   const filteredPosts = useMemo(() => {
@@ -142,8 +156,9 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
       return (
         matchesTag &&
         (post.title.toLowerCase().includes(q) ||
+          (post.subtitle && post.subtitle.toLowerCase().includes(q)) ||
           post.excerpt.toLowerCase().includes(q) ||
-          post.content.toLowerCase().includes(q) ||
+          post.slug.toLowerCase().includes(q) ||
           post.tags.some((t) => t.toLowerCase().includes(q)))
       );
     });
@@ -166,8 +181,11 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
           <a href="#home" className="flex items-center gap-3 group">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/assets/Logo.png"
+              src="/assets/Logo.webp"
               alt="AppZar"
+              width={36}
+              height={36}
+              decoding="async"
               className="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
             <div className="hidden sm:flex flex-col">
@@ -380,7 +398,7 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
                           <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
-                            {post.tags.map((tag) => (
+                            {post.tags.slice(0, 2).map((tag) => (
                               <span
                                 key={tag}
                                 className="rounded-md bg-slate-950/85 border border-slate-700/80 px-2.5 py-0.5 text-[11px] font-medium text-[#80ffdb] backdrop-blur-sm"
@@ -396,7 +414,7 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
                         <div>
                           {!post.thumbImg && (
                             <div className="mb-3 flex flex-wrap gap-1.5">
-                              {post.tags.map((tag) => (
+                              {post.tags.slice(0, 2).map((tag) => (
                                 <span
                                   key={tag}
                                   className="rounded-md bg-[#5e60ce]/15 border border-[#5e60ce]/30 px-2.5 py-0.5 text-[11px] font-medium text-[#80ffdb]"
@@ -499,7 +517,10 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
                     <img
                       src={project.image}
                       alt={project.title}
+                      width={640}
+                      height={360}
                       loading="lazy"
+                      decoding="async"
                       className="max-h-full w-auto rounded-lg object-contain transition-transform duration-500 group-hover:scale-[1.03]"
                     />
                     <span
@@ -632,7 +653,15 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 sm:flex-row sm:px-6">
           <div className="flex items-center gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/Logo.png" alt="AppZar" className="h-7 w-auto opacity-80" />
+            <img
+              src="/assets/Logo.webp"
+              alt="AppZar"
+              width={28}
+              height={28}
+              loading="lazy"
+              decoding="async"
+              className="h-7 w-auto opacity-80"
+            />
             <span className="text-xs text-slate-400">
               © {new Date().getFullYear()} {PROFILE.name} (AppZar). All rights reserved.
             </span>
@@ -649,6 +678,14 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
             </a>
             <a href="#about" className="hover:text-white transition-colors">
               About
+            </a>
+            <a
+              href="/rss.xml"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#80ffdb] transition-colors"
+            >
+              RSS Feed
             </a>
           </div>
         </div>

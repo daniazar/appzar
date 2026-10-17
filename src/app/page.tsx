@@ -1,8 +1,8 @@
 import React from 'react';
-import { getAllPosts } from '@/lib/posts';
+import { getAllPostSummaries } from '@/lib/posts';
 import UnifiedHome from '@/components/UnifiedHome';
 
 export default function HomePage() {
-  const posts = getAllPosts();
+  const posts = getAllPostSummaries();
   return <UnifiedHome posts={posts} />;
 }

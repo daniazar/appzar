@@ -120,7 +120,7 @@ export const PROJECTS: ProjectItem[] = [
     tech: ['WebGL2 / GLSL', 'Three.js / R3F', 'Next.js 16', 'React 19', 'TypeScript', 'Marching Cubes STL'],
     description:
       'The modern browser evolution of my iSurfer thesis: a zero-install 3D mathematical studio that renders implicit algebraic and transcendental surfaces f(x,y,z)=0 at 60 FPS using closed-form Cardano/Ferrari root solvers, interval raymarching, dual-sided PBR shading, keyframe timelines, and watertight 3D print STL export.',
-    image: '/assets/surfzar/surfzar-hero.gif',
+    image: '/images/thumbs/project_surfzar.webp',
     accent: 'purple',
     links: [
       {
@@ -134,8 +134,18 @@ export const PROJECTS: ProjectItem[] = [
         icon: 'code',
       },
       {
-        label: 'Read Article',
+        label: 'Architecture',
         url: '/posts/surfzar_realtime_3d_algebraic_surfaces_webgl',
+        icon: 'play',
+      },
+      {
+        label: 'Curvature & CSG',
+        url: '/posts/surfzar-differential-geometry-csg-and-3d-printing',
+        icon: 'play',
+      },
+      {
+        label: 'GF(2⁸) QR Engine',
+        url: '/posts/surfzar-reed-solomon-qr-encoder-and-url-state',
         icon: 'play',
       },
     ],
@@ -244,8 +254,13 @@ export const PROJECTS: ProjectItem[] = [
         icon: 'code',
       },
       {
-        label: 'Read Article',
+        label: 'Studio Overview',
         url: '/posts/architectura-ai-virtual-renovation-studio',
+        icon: 'play',
+      },
+      {
+        label: 'Image Tree DAG',
+        url: '/posts/architectura-ai-image-tree-dag-versioning',
         icon: 'play',
       },
     ],
@@ -314,6 +329,11 @@ export const PROJECTS: ProjectItem[] = [
         url: '/posts/molten-ai-agent-master-thesis',
         icon: 'play',
       },
+      {
+        label: 'Fibonacci Engine',
+        url: '/posts/molten-ai-recursive-fibonacci-task-decomposition',
+        icon: 'play',
+      },
     ],
   },
   {
@@ -367,7 +387,7 @@ export const PROJECTS: ProjectItem[] = [
     tech: ['Age of Empires II: DE', 'JSON WidgetUI', 'DDS Textures', '4K UltraWide UX'],
     description:
       'A custom competitive 4K UltraWide UI mod (#16939 on the official Age of Empires Mod Workshop) that clusters the minimap, resource bar, unit queues, and command panel into the lower-left focal zone with transparent overlays.',
-    image: '/assets/aoe2-ui-mod.jpg',
+    image: '/images/thumbs/project_aoe2_ui_mod.webp',
     accent: 'amber',
     links: [
       {
@@ -421,7 +441,7 @@ export const PROJECTS: ProjectItem[] = [
     tech: ['C#', 'WinUI 3 Alpha', 'Bing Maps API', 'Windows 10'],
     description:
       'A desktop application to batch-edit EXIF image metadata (dates and geolocation coordinates). Built during the COVID-19 quarantine to digitize and organize thousands of scanned family photo albums.',
-    image: '/assets/image-metadata.png',
+    image: '/images/thumbs/project_image_metadata.webp',
     accent: 'purple',
     links: [
       {
@@ -444,7 +464,7 @@ export const PROJECTS: ProjectItem[] = [
     description:
       'A responsive web and desktop application to watch Latin American television channels online for free with an ad-free, theater-mode interface, multi-source switching, and live event schedules.',
     note: 'Works best with Opera web browser, Chrome on Android, or the Electron desktop client.',
-    image: '/assets/tvmaster.png',
+    image: '/images/thumbs/project_tvmaster.webp',
     accent: 'indigo',
     links: [
       {
@@ -471,7 +491,7 @@ export const PROJECTS: ProjectItem[] = [
     tech: ['JavaScript', 'AngularJS', 'PostgreSQL', 'Kairos', 'Raspberry Pi'],
     description:
       'A smart security camera platform with real-time face recognition. Supports standard webcams, most IP cameras, and a custom Raspberry Pi hardware camera prototype.',
-    image: '/assets/cloudcam.png',
+    image: '/images/thumbs/project_cloudcam.webp',
     accent: 'amber',
     links: [
       {
@@ -488,12 +508,12 @@ export const PROJECTS: ProjectItem[] = [
   },
   {
     id: 'isurfer',
-    title: 'iSurfer',
+    title: 'iSurfer — Real-Time GPU Algebraic Surface Ray Tracer',
     year: '2013',
-    tech: ['OpenGL ES 2', 'GLSL Shaders', 'Objective-C', 'Ray Tracing'],
+    tech: ['OpenGL ES 2.0', 'GLSL Shaders', 'Objective-C', 'AST Compiler', 'Ray Tracing'],
     description:
-      'My university thesis project: an algebraic surfaces renderer for iPhone. Because mobile CPUs were not fast enough at the time, it was implemented entirely on the GPU via a custom Ray Tracer inside dynamically compiled GLSL shaders.',
-    image: '/assets/isurfer.png',
+      'My university thesis project at ITBA: a real-time algebraic surfaces renderer for iPhone and iPad. Compiles user equations f(x,y,z)=0 on the fly via a recursive-descent AST parser into dynamically linked OpenGL ES 2.0 fragment shaders for per-pixel GPU ray tracing.',
+    image: '/images/thumbs/project_isurfer.webp',
     accent: 'cyan',
     links: [
       {
@@ -502,7 +522,17 @@ export const PROJECTS: ProjectItem[] = [
         icon: 'video',
       },
       {
-        label: 'Read Article',
+        label: 'Part 1: Ray Tracing vs. Meshes',
+        url: '/posts/isurfer-part-1-why-raytracing-beats-triangle-meshes-for-algebraic-surfaces',
+        icon: 'play',
+      },
+      {
+        label: 'Part 2: AST & GLSL JIT Compiler',
+        url: '/posts/isurfer-part-2-equation-parser-ast-and-on-the-fly-glsl-compiler',
+        icon: 'code',
+      },
+      {
+        label: 'Part 3: Fragment Shader Ray Tracer',
         url: '/posts/isurfer-gpu-raytracing-algebraic-surfaces-ios',
         icon: 'play',
       },
@@ -515,7 +545,7 @@ export const PROJECTS: ProjectItem[] = [
     tech: ['C#', 'JavaScript', 'Cordova', 'BlackBerry World'],
     description:
       'A mobile dream journal and tracking application designed and published for the BlackBerry World Store.',
-    image: '/assets/dreamlist.png',
+    image: '/images/thumbs/project_dreamlist.webp',
     accent: 'indigo',
     links: [
       {
@@ -533,7 +563,7 @@ export const PROJECTS: ProjectItem[] = [
     description:
       'A low-level cryptography and steganography tool in C to encrypt information using AES, DES, and SHA and conceal the payload inside uncompressed WAV audio files.',
     coAuthor: 'Made with Gustavo Maldonado',
-    image: '/assets/stenography.png',
+    image: '/images/thumbs/project_stenography.webp',
     accent: 'amber',
     links: [
       {
@@ -555,7 +585,7 @@ export const PROJECTS: ProjectItem[] = [
     tech: ['C#', 'Unity 3D', 'Game Dev'],
     description:
       'An Asteroids game built for a university course featuring two playable camera modes: 2D Classic and 2.5D third-person chase camera behind the spacecraft.',
-    image: '/assets/asteroids.png',
+    image: '/images/thumbs/project_asteroids.webp',
     accent: 'purple',
     links: [
       {
@@ -583,7 +613,7 @@ export const PROJECTS: ProjectItem[] = [
     description:
       'A procedurally generated racing game with infinite city courses, dynamic road generation, and AI opponents. Published on Kongregate where over 10,000 players raced it.',
     note: 'Legacy Unity Web Player build on Kongregate.',
-    image: '/assets/cityracer.png',
+    image: '/images/thumbs/project_cityracer.webp',
     accent: 'indigo',
     links: [
       {

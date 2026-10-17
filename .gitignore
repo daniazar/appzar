@@ -7,6 +7,7 @@
 /.next/
 /out/
 /dist/
+/syndication/
 
 # Misc
 .DS_Store

@@ -16,15 +16,26 @@ export interface BlogPost {
   seriesOrder?: number;
 }
 
+export type BlogPostSummary = Omit<BlogPost, 'content'>;
+
 const postsDirectory = path.join(process.cwd(), 'content/posts');
 
 export function normalizeAssetPath(rawPath?: string): string | undefined {
   if (!rawPath) return undefined;
   const cleaned = rawPath.trim().replace(/^(\.\.\/|\.\/)+/, '');
-  if (cleaned.startsWith('http://') || cleaned.startsWith('https://') || cleaned.startsWith('/')) {
-    return cleaned;
+  const normalized =
+    cleaned.startsWith('http://') || cleaned.startsWith('https://') || cleaned.startsWith('/')
+      ? cleaned
+      : `/${cleaned}`;
+
+  if (normalized.startsWith('/') && /\.(png|jpg|jpeg)$/i.test(normalized)) {
+    const webpCandidate = normalized.replace(/\.(png|jpg|jpeg)$/i, '.webp');
+    const diskWebp = path.join(process.cwd(), 'public', webpCandidate.replace(/^\//, ''));
+    if (fs.existsSync(diskWebp)) {
+      return webpCandidate;
+    }
   }
-  return `/${cleaned}`;
+  return normalized;
 }
 
 function extractTitleAndStripH1(rawContent: string, frontmatterTitle?: string): { title: string; body: string } {
@@ -141,9 +152,11 @@ function resolvePostDate(slug: string, markdown: string, frontmatterDate?: strin
 }
 
 function inferTags(slug: string, title: string, content: string, explicitTags?: string[]): string[] {
-  if (explicitTags && explicitTags.length > 0) return explicitTags;
-  const combined = `${slug} ${title} ${content.slice(0, 1500)}`.toLowerCase();
+  const explicitJoined = (explicitTags || []).join(' ');
+  const combined = `${slug} ${title} ${explicitJoined} ${content.slice(0, 1500)}`.toLowerCase();
   const tags: string[] = [];
+
+  const isRubyNewsStudio = /^\d{2}_/.test(slug) || slug.startsWith('engineering_blog_');
 
   if (
     combined.includes('tensorrt') ||
@@ -151,7 +164,8 @@ function inferTags(slug: string, title: string, content: string, explicitTags?: 
     combined.includes('blackwell') ||
     combined.includes('fp8') ||
     combined.includes('triton') ||
-    combined.includes('nvenc')
+    combined.includes('nvenc') ||
+    combined.includes('onnx')
   ) {
     tags.push('CUDA & TensorRT');
   }
@@ -162,7 +176,10 @@ function inferTags(slug: string, title: string, content: string, explicitTags?: 
     combined.includes('talking head') ||
     combined.includes('lip-sync') ||
     combined.includes('rife') ||
-    combined.includes('inpainting')
+    combined.includes('inpainting') ||
+    slug.includes('cinezero') ||
+    combined.includes('veo 3') ||
+    combined.includes('google flow')
   ) {
     tags.push('Talking Head & Video AI');
   }
@@ -171,28 +188,89 @@ function inferTags(slug: string, title: string, content: string, explicitTags?: 
     combined.includes('omnivoice') ||
     combined.includes('piper') ||
     combined.includes('vocoder') ||
-    combined.includes('voice') ||
-    combined.includes('prosody')
+    combined.includes('prosody') ||
+    combined.includes('voice cloning') ||
+    combined.includes('speculative vad') ||
+    slug.includes('forensic_tts') ||
+    slug.includes('frontier_dsp') ||
+    slug.includes('omnivoice') ||
+    slug.includes('eliminating_robotic_audio')
   ) {
     tags.push('Voice & TTS');
   }
-  if (combined.includes('webgpu') || combined.includes('wasm') || combined.includes('webrtc')) {
-    tags.push('WebGPU & Real-Time');
+  if (
+    combined.includes('webgpu') ||
+    combined.includes('webgl') ||
+    combined.includes('opengl') ||
+    combined.includes('glsl') ||
+    combined.includes('raytracing') ||
+    combined.includes('ray tracing') ||
+    slug.includes('isurfer') ||
+    slug.includes('surfzar') ||
+    slug.includes('lsystemts') ||
+    slug.includes('unity') ||
+    combined.includes('unity 3d') ||
+    combined.includes('three.js')
+  ) {
+    tags.push('Computer Graphics');
   }
-  if (combined.includes('azure') || combined.includes('blob') || combined.includes('auto scale') || combined.includes('scaling')) {
-    tags.push('Azure & Cloud');
+  if (
+    isRubyNewsStudio ||
+    combined.includes('ai agent') ||
+    combined.includes('agentic') ||
+    slug.includes('jules') ||
+    slug.includes('mcp') ||
+    slug.includes('molten-ai') ||
+    combined.includes('genkit') ||
+    slug.includes('cinezero') ||
+    slug.includes('architectura-ai') ||
+    slug.includes('contractapp') ||
+    slug.includes('cloudcam')
+  ) {
+    tags.push('AI & Agents');
   }
-  if (combined.includes('typescript') || combined.includes('angular') || combined.includes('electron')) {
+  if (
+    combined.includes('azure') ||
+    slug.includes('auto-scale') ||
+    slug.includes('ssl') ||
+    slug.includes('moltenminds') ||
+    slug.includes('firewall') ||
+    slug.includes('steganography')
+  ) {
+    tags.push('Cloud & Security');
+  }
+  if (
+    slug.includes('surfzar') ||
+    slug.includes('cinezero') ||
+    slug.includes('architectura-ai') ||
+    slug.includes('pdfmaster') ||
+    slug.includes('contractapp') ||
+    slug.includes('molten-ai') ||
+    slug.includes('discord-schedule-bot') ||
+    slug.includes('inmoflow') ||
+    slug.includes('webscreen') ||
+    slug.includes('lsystemts') ||
+    slug.includes('google-flow-mcp') ||
+    slug.includes('electron') ||
+    slug.includes('angular') ||
+    slug.includes('fixing-old-images') ||
+    slug.includes('piper_tts_in_the_browser') ||
+    slug.includes('webgpu_browser_native')
+  ) {
     tags.push('TypeScript & Web');
   }
-  if (combined.includes('ssl') || combined.includes('certificate')) {
-    tags.push('Security & DevOps');
-  }
-  if (combined.includes('winui') || combined.includes('metadata')) {
-    tags.push('C# & Desktop');
+  if (
+    slug.includes('teshis') ||
+    slug.includes('aoe2') ||
+    slug.includes('cloudcam') ||
+    slug.includes('isurfer') ||
+    slug.includes('steganography') ||
+    slug.includes('firewall')
+  ) {
+    tags.push('Systems & Desktop');
   }
 
-  return tags.length > 0 ? tags.slice(0, 3) : ['Engineering'];
+  return tags.length > 0 ? tags : ['TypeScript & Web'];
 }
 
 function calculateReadingTime(content: string): string {
@@ -264,6 +342,10 @@ export function getAllPosts(): BlogPost[] {
     }
     return (b.seriesOrder || 0) - (a.seriesOrder || 0);
   });
+}
+
+export function getAllPostSummaries(): BlogPostSummary[] {
+  return getAllPosts().map(({ content: _content, ...summary }) => summary);
 }
 
 export function getPostBySlug(slug: string): BlogPost | undefined {

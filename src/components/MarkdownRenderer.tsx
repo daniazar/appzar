@@ -1,11 +1,10 @@
-'use client';
-
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import rehypeRaw from 'rehype-raw';
 import rehypeKatex from 'rehype-katex';
+import { normalizeAssetPath } from '@/lib/posts';
 import MermaidDiagram from './MermaidDiagram';
 import DiagramBlockRenderer from './DiagramBlockRenderer';
 
@@ -14,12 +13,7 @@ interface MarkdownRendererProps {
 }
 
 function normalizeImageUrl(src?: string): string | undefined {
-  if (!src) return undefined;
-  const cleaned = src.trim().replace(/^(\.\.\/|\.\/)+/, '');
-  if (cleaned.startsWith('http://') || cleaned.startsWith('https://') || cleaned.startsWith('/')) {
-    return cleaned;
-  }
-  return `/${cleaned}`;
+  return normalizeAssetPath(src);
 }
 
 function normalizeHref(href?: string): string | undefined {
@@ -160,6 +154,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
                   src={normalizedSrc}
                   alt={alt || ''}
                   loading="lazy"
+                  decoding="async"
                   className="mx-auto max-h-[560px] w-auto rounded-lg object-contain"
                 />
                 {alt && (

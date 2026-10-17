@@ -76,7 +76,13 @@ export default function ParticlePortrait() {
       }
     };
 
+    let isVisible = true;
+
     const animate = () => {
+      if (!isVisible || document.hidden) {
+        animFrameId = 0;
+        return;
+      }
       ctx.fillStyle = 'rgba(13, 17, 28, 0.28)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -109,10 +115,7 @@ export default function ParticlePortrait() {
         }
 
         ctx.fillStyle = p.color;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.fill();
+        ctx.fillRect(p.x - p.size, p.y - p.size, p.size * 2, p.size * 2);
       }
 
       animFrameId = window.requestAnimationFrame(animate);
@@ -145,13 +148,27 @@ export default function ParticlePortrait() {
       };
     }
 
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry) return;
+        isVisible = entry.isIntersecting;
+        if (isVisible && particles.length > 0 && !animFrameId) {
+          animFrameId = window.requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0.01 }
+    );
+    observer.observe(canvas);
+
     canvas.addEventListener('mousemove', onMouseMove);
     canvas.addEventListener('mouseleave', onPointerLeave);
     canvas.addEventListener('touchmove', onTouchMove, { passive: true });
     canvas.addEventListener('touchend', onPointerLeave);
 
     return () => {
-      window.cancelAnimationFrame(animFrameId);
+      observer.disconnect();
+      if (animFrameId) window.cancelAnimationFrame(animFrameId);
       canvas.removeEventListener('mousemove', onMouseMove);
       canvas.removeEventListener('mouseleave', onPointerLeave);
       canvas.removeEventListener('touchmove', onTouchMove);
