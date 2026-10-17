@@ -10,7 +10,7 @@
     <link>https://www.appzar.com.ar/</link>
     <atom:link href="https://www.appzar.com.ar/rss.xml" rel="self" type="application/rss+xml" />
     <language>en-us</language>
-    <lastBuildDate>Sat, 17 Oct 2026 17:20:50 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 17 Oct 2026 17:42:15 GMT</lastBuildDate>
     <item>
       <title>Antigravity Jules Plugin: Asynchronous Cloud Engineering Delegation from the IDE</title>
       <link>https://www.appzar.com.ar/posts/antigravity-jules-plugin/</link>
@@ -10777,11 +10777,11 @@ Once generated, agreements flow into the **Contract Dashboard** (`src/app/dashbo
       <description>Inside the prompt and schema engineering of Molten AI Agent: how we used Zod-constrained structured outputs, Agile Fibonacci thresholds (≥8 story points), and multi-stage role enrichment to prevent LLM scope collapse.</description>
       <media:thumbnail url="https://www.appzar.com.ar/images/covers/molten-ai-recursive-fibonacci-task-decomposition.webp" />
       <enclosure url="https://www.appzar.com.ar/images/covers/molten-ai-recursive-fibonacci-task-decomposition.webp" type="image/webp" length="0" />
-      <content:encoded><![CDATA[In my [**Master's Thesis overview of Molten AI Agent**](https://www.appzar.com.ar/posts/molten-ai-agent-master-thesis/), I shared the empirical results and product workflow of our 7-stage autonomous Business Analyst & Project Management system.
+      <content:encoded><![CDATA[In my [**MBA Master's Thesis overview of Molten AI Agent**](https://www.appzar.com.ar/posts/molten-ai-agent-master-thesis/), I shared the empirical results and product workflow of our 7-stage autonomous Business Analyst & Project Management system.
 
 In this follow-up technical post, I want to look directly at the **TypeScript API routes and Zod schema pipelines** (`app/api/generate-tasks/route.ts`, `app/api/enrich-task-advanced/route.ts`, `app/api/decompose-task/route.ts`, and `app/api/decompose-to-epic/route.ts`) that solved the hardest engineering problem in the thesis: **preventing "Single-Prompt Scope Collapse" when LLMs estimate and decompose software architectures.**
 
-![Molten AI Agent — Customizable Multi-Dimensional Task Enrichment Pipeline](https://www.appzar.com.ar/assets/molten-ai/task-enrichment.webp)
+![Molten AI Agent — Customizable Multi-Dimensional Task Enrichment Pipeline](https://www.appzar.com.ar/assets/molten-ai/step5-enrichment-config.webp)
 
 ---
 
