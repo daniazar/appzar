@@ -9,7 +9,7 @@
     "lint": "tsc --noEmit",
     "optimize-images": "node scripts/optimize-images.mjs",
     "syndicate": "node scripts/generate-syndication.mjs",
-    "deploy": "npx gh-pages-clean && npm run build && npx gh-pages -d out --cname www.appzar.com.ar --dotfiles"
+    "deploy": "npm run build && npx gh-pages -d out --cname www.appzar.com.ar --dotfiles --remove ."
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
