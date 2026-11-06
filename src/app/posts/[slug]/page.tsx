@@ -12,6 +12,7 @@ import {
   ChevronRight,
   List,
   Layers,
+  FileText,
 } from 'lucide-react';
 import { getAllPosts, getPostBySlug, type BlogPost } from '@/lib/posts';
 import { slugifyHeading } from '@/lib/syntaxHighlight';
@@ -290,6 +291,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             >
               <User className="h-4 w-4 text-purple-400" />
               <span>About</span>
+            </Link>
+            <Link
+              href="/resume"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-[#4ea8de]/40 bg-[#4ea8de]/10 px-3 py-1.5 text-xs sm:text-sm font-semibold text-[#80ffdb] hover:bg-[#4ea8de]/20 hover:text-white transition-colors"
+            >
+              <FileText className="h-4 w-4 text-[#64dfdf]" />
+              <span>Resume</span>
             </Link>
           </nav>
         </div>

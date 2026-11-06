@@ -24,6 +24,7 @@ import {
   Cpu,
   GraduationCap,
   Award,
+  FileText,
 } from 'lucide-react';
 import GridCanvas from './GridCanvas';
 import ParticlePortrait from './ParticlePortrait';
@@ -32,6 +33,7 @@ import {
   PROFILE,
   PROJECTS,
   FEATURED_SERIES,
+  FLAGSHIP_PAPERS,
   type ProjectItem,
   type ProjectCategory,
 } from '@/lib/data';
@@ -241,6 +243,13 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
               <User className="h-4 w-4 text-purple-400" />
               <span>About</span>
             </a>
+            <Link
+              href="/resume"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-[#4ea8de]/40 bg-[#4ea8de]/10 px-3 py-1.5 text-xs sm:text-sm font-semibold text-[#80ffdb] hover:bg-[#4ea8de]/20 hover:text-white transition-colors"
+            >
+              <FileText className="h-4 w-4 text-[#64dfdf]" />
+              <span>Resume</span>
+            </Link>
           </nav>
         </div>
       </header>
@@ -317,6 +326,13 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
               <Briefcase className="h-4 w-4 text-[#80ffdb]" />
               <span>View Projects ({PROJECTS.length})</span>
             </a>
+            <Link
+              href="/resume"
+              className="inline-flex items-center gap-2 rounded-xl border border-[#4ea8de]/50 bg-[#070a12]/90 px-5 py-2.5 text-sm font-semibold text-[#80ffdb] hover:border-[#80ffdb] hover:bg-slate-900 transition-all"
+            >
+              <FileText className="h-4 w-4 text-[#64dfdf]" />
+              <span>View / Print Resume (CV)</span>
+            </Link>
           </div>
         </div>
       </section>
@@ -349,6 +365,44 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
                 placeholder="Search articles, topics..."
                 className="w-full rounded-xl border border-slate-800 bg-slate-900/90 py-2.5 pl-10 pr-4 text-sm text-slate-100 placeholder-slate-500 focus:border-[#4ea8de] focus:outline-none focus:ring-1 focus:ring-[#4ea8de]"
               />
+            </div>
+          </div>
+
+          {/* Start Here: Flagship Engineering Deep-Dives */}
+          <div className="mt-7 rounded-2xl border border-[#4ea8de]/30 bg-gradient-to-br from-[#5e60ce]/10 via-slate-900/80 to-[#4ea8de]/10 p-5">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#80ffdb]">
+                <Sparkles className="h-4 w-4 text-[#64dfdf]" />
+                <span>Start Here • Selected Flagship Engineering Deep-Dives</span>
+              </div>
+              <span className="text-xs text-slate-400">
+                Recommended first reads for engineering leads &amp; founders
+              </span>
+            </div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {FLAGSHIP_PAPERS.map((paper) => (
+                <Link
+                  key={paper.url}
+                  href={paper.url}
+                  className="group flex flex-col justify-between rounded-xl border border-slate-800/90 bg-[#070a12]/85 p-4 transition-all hover:-translate-y-0.5 hover:border-[#4ea8de]/60 hover:bg-slate-900"
+                >
+                  <div>
+                    <span className="inline-block rounded-md border border-[#4ea8de]/40 bg-[#4ea8de]/15 px-2 py-0.5 text-[10px] font-bold text-[#80ffdb]">
+                      {paper.metric}
+                    </span>
+                    <h3 className="mt-2 text-xs sm:text-sm font-bold text-white group-hover:text-[#64dfdf] transition-colors leading-snug">
+                      {paper.title}
+                    </h3>
+                    <p className="mt-1.5 text-xs text-slate-400 leading-relaxed line-clamp-3">
+                      {paper.summary}
+                    </p>
+                  </div>
+                  <span className="mt-3 inline-flex items-center gap-1 text-[11px] font-semibold text-[#64dfdf] group-hover:translate-x-0.5 transition-transform">
+                    <span>Read flagship paper</span>
+                    <ArrowRight className="h-3 w-3" />
+                  </span>
+                </Link>
+              ))}
             </div>
           </div>
 
@@ -762,9 +816,17 @@ export default function UnifiedHome({ posts }: UnifiedHomeProps) {
                         </span>
                       </div>
                       <p className="mt-0.5 text-xs font-semibold text-[#64dfdf]">{item.org}</p>
-                      <p className="mt-1.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
-                        {item.description}
-                      </p>
+                      {item.bullets ? (
+                        <ul className="mt-2 list-disc space-y-1.5 pl-4 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                          {item.bullets.map((b, bIdx) => (
+                            <li key={bIdx}>{b}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="mt-1.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                          {item.description}
+                        </p>
+                      )}
                     </div>
                   ))}
                 </div>

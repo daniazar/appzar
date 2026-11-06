@@ -67,6 +67,41 @@ export const FEATURED_SERIES = [
   },
 ];
 
+export const FLAGSHIP_PAPERS = [
+  {
+    metric: '90+ FPS • Blackwell FP8/FP16',
+    title: 'Native FP8/FP16 TensorRT, Zero-Copy NVENC & 90+ FPS Real-Time Talking-Head Pipeline',
+    summary:
+      'How we eliminated CPU-GPU PCIe bottlenecks using CUDA Graphs, fused Triton NV12 splicing kernels, and hardware NVENC streaming.',
+    url: '/posts/19_native_fp8_fp16_zero_copy_and_ninety_fps_milestone',
+    tag: 'CUDA & TensorRT',
+  },
+  {
+    metric: '60 FPS • Closed-Form GLSL',
+    title: 'SurfZar: Analytical Cardano/Ferrari Root Solvers, Curvature & Watertight STL 3D Printing',
+    summary:
+      'Rendering exact implicit algebraic surfaces f(x,y,z)=0 in WebGL2 without triangle meshes, paired with Marching Cubes STL export.',
+    url: '/posts/surfzar_realtime_3d_algebraic_surfaces_webgl',
+    tag: 'Computer Graphics',
+  },
+  {
+    metric: 'MBA Thesis (GPA 9.59/10)',
+    title: 'Molten AI Agent: Preventing LLM Scope Collapse via Recursive Fibonacci Task Decomposition',
+    summary:
+      'A 7-stage Zod-constrained Business Analyst & Scrum backlog engine that automatically decomposes ≥8-point tasks into Epics and atomic sub-tasks.',
+    url: '/posts/molten-ai-recursive-fibonacci-task-decomposition',
+    tag: 'AI & Agents',
+  },
+  {
+    metric: 'Check Point Award 2020',
+    title: 'Automating Enterprise Firewall Migrations: Cisco ASA to Check Point VSX Compiler in Go',
+    summary:
+      'How we built ASAtoVSXParser to migrate ARSAT’s critical national telecommunications firewalls in hours with zero syntax errors.',
+    url: '/posts/automating-enterprise-firewall-migration-cisco-asa-to-checkpoint-vsx-go',
+    tag: 'Cloud & Security',
+  },
+];
+
 export const PROFILE = {
   name: 'Daniel Azar',
   role: 'Software AI Engineer',
@@ -115,13 +150,23 @@ export const PROFILE = {
       org: 'MoltenMinds • Argentina',
       description:
         'Spearheading proprietary generative AI video, audio, and imaging pipelines for real estate and media applications, directing remote engineering teams across multimodal AI workflows, and architecting cloud infrastructure. Previously engineered ARSAT’s automated Cisco ASA to Check Point VSX firewall migration tool (Check Point Contributor of the Year 2020).',
+      bullets: [
+        'Spearheaded proprietary generative AI video, audio, and spatial imaging pipelines (TensorRT FP8/FP16, CUDA Graphs, Veo 3.1, Gemini, WebGL2/Three.js), turning frontier multimodal models into commercial real estate and media platforms.',
+        'Directed remote cross-functional engineering teams across complex multi-repo workflows with rapid iteration cycles for synchronized image, voice, and video generation.',
+        'Architected ASAtoVSXParser in Go for ARSAT (Argentina’s national telecommunications company), migrating critical Cisco ASA firewalls to Check Point VSX in hours and winning Check Point’s Contributor of the Year Award (2020).',
+      ],
     },
     {
       period: 'Jul 2022 – Sep 2024',
       role: 'Senior 3D Software Engineer',
       org: 'Scale AI • Remote',
       description:
-        'Engineered 3D sensor fusion systems and started the Scale Calibrate project, calibrating autonomous vehicle LiDAR and camera sensors for high-precision 3D data labeling.',
+        'Engineered 3D sensor fusion systems and started the Scale Calibrate project, calibrating autonomous vehicle LiDAR and camera sensors (intrinsic/extrinsic matrices and multi-sensor projection) for high-precision 3D perception data labeling.',
+      bullets: [
+        'Core member of the 3D Sensor Fusion engineering team, building interactive browser-based 3D point-cloud and multi-camera perception tooling for autonomous driving datasets.',
+        'Initiated and architected Scale Calibrate, a sensor calibration platform for computing and validating LiDAR-to-camera extrinsic/intrinsic transformation matrices, distortion parameters, and frustum projections.',
+        'Reduced calibration turnaround time and improved 3D cuboid-to-2D image projection accuracy across multi-sensor autonomous vehicle labeling pipelines.',
+      ],
     },
     {
       period: 'Aug 2018 – Nov 2019',
@@ -129,6 +174,11 @@ export const PROFILE = {
       org: 'SOUTHWORKS • Buenos Aires',
       description:
         'External engineering lead for Microsoft: built features for the Microsoft Azure Portal VPN & Networking section and scaled Azure Email Orchestrator from 10k to 2M daily emails across 17 regions and 5 environments using automated EV2 deployment templates.',
+      bullets: [
+        'Engineered core UI and backend features for the Microsoft Azure Portal VPN and Networking blade as part of a specialized external engineering team.',
+        'Scaled Microsoft Azure Email Orchestrator throughput 200× (from 10,000 to 2,000,000+ emails/day), expanding infrastructure from a single server to 17 global Azure regions across 5 environments.',
+        'Built automated Express V2 (EV2) deployment template generators for zero-downtime multi-region rollouts.',
+      ],
     },
     {
       period: 'Jun 2015 – Dec 2016',
@@ -136,6 +186,10 @@ export const PROFILE = {
       org: 'Globant • Argentina',
       description:
         'Developed five enterprise finance web applications for Deloitte using AngularJS, Node.js, and .NET—reducing API calls by 75% and cutting load times by 80% through caching architectures, plus designing an enterprise audit tool.',
+      bullets: [
+        'Delivered five enterprise financial web applications for Deloitte using AngularJS, Node.js, and C#/.NET.',
+        'Designed multi-tier caching strategies that reduced backend API calls by 75% and cut page load latency by 80%, alongside building an internal compliance audit platform.',
+      ],
     },
     {
       period: 'Dec 2011 – Aug 2018',
@@ -143,6 +197,10 @@ export const PROFILE = {
       org: 'AppZar • iSemaphores • Asociame',
       description:
         'Built web and mobile products under AppZar, co-founded iSemaphores (AI & Big Data smart traffic control — Winner of Startup Buenos Aires Challenge X at Google Argentina & 3rd Place in Ford Future of Mobility), and built the Asociame crowdfunding platform.',
+      bullets: [
+        'Co-founded iSemaphores, a real-time AI and Big Data urban traffic optimization system (1st Place at Startup Buenos Aires Challenge X by 1776DC at Google Argentina, 3rd Place in Ford Future of Mobility, and Startup Mexico Challenge Cup Semifinalist).',
+        'Developed full-stack web, mobile, and desktop applications under AppZar (TV Master, CloudCam Raspberry Pi facial recognition, Dream List) and the Asociame crowdfunding platform.',
+      ],
     },
   ],
   awards: [
@@ -699,6 +757,11 @@ export const PROJECTS: ProjectItem[] = [
         label: 'Part 3: Fragment Shader Ray Tracer',
         url: '/posts/isurfer-gpu-raytracing-algebraic-surfaces-ios',
         icon: 'play',
+      },
+      {
+        label: 'ITBA Thesis PDF',
+        url: 'https://ri.itba.edu.ar/bitstream/handle/123456789/1041/Proyecto_Final_Azar.pdf?sequence=1&isAllowed=y',
+        icon: 'download',
       },
     ],
   },
